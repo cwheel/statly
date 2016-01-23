@@ -16,11 +16,7 @@ data.counter = "dsjflkds";
 Application.instances = [];
 Application.instances.push(instance1);
 Application.instances.push(instance2);
-/*
-Application.addRelation('instances', {id:instance1.id})
-Application.addRelation('instances', {id:instance2.id})
-*/
-/*
+
 Application.saveAll().then(function (){
 	console.log(Application);
 	//models.application.get(Application.id).addRelation('instances', {id: instance1.id})
