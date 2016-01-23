@@ -7,4 +7,6 @@ function dashboardController($scope, $state, $http) {
 			$state.go("login");
 		}
 	});
+
+	$scope.apps = {"My First App" : ["Node 1", "Node 2", "Node 3"], "My Second App" : ["Node 1", "Node 2"]};
 }

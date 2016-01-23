@@ -1,3 +1,23 @@
-<div class="container-fluid" id="dashboard-container">
-hi world
+<div id="dashboard-container">
+	<div id="sidebar">
+		<div id="sidebar-title">STATLY</div>
+
+		<ul>
+			<li ng-repeat="(app, instances) in apps">
+				<heading>
+					<i class="fa fa-server"></i> {{app}}
+				</heading>
+
+				<ul>
+					<li ng-repeat="i in instances">
+						<div class="status-indicator-success"></div><span>{{i}}</span>
+					</li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+
+	<div id="content">
+	</div>
 </div>

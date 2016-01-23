@@ -3,4 +3,104 @@
 #dashboard-container {
 	background-color: $content-color;
 	height: 100%;
+
+	display: flex;
+}
+
+#sidebar {
+	flex: 1;
+
+	background: $sidebar-color;
+
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+
+		li {
+			color: #fff;
+			background: darken($sidebar-color,5);
+
+			padding-top: 10px;
+
+			font-family: 'Montserrat', sans-serif;
+			font-weight: 700;
+			
+			.fa {
+				padding-left: 20px;
+			}
+
+			ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+
+				padding-top: 10px;
+
+				li {
+					padding-left: 30px;
+					background: darken($sidebar-color,10);
+					transition: all 0.3s;
+					cursor: pointer;
+
+					padding-top: 7px;
+					padding-bottom: 7px;
+
+					color: #adc5df;
+
+					font-family: 'Montserrat', sans-serif;
+					font-weight: 500;
+
+					span {
+						padding-left: 7px;
+					}
+
+					&:hover {
+						background: darken($sidebar-color, 15);
+					}
+				}
+			}
+		}
+	}
+}
+
+.status-indicator {
+	border-radius: 100px;
+	height: 10px;
+	width: 10px;
+
+	margin-top: 4px;
+
+	float:left;
+}
+
+.status-indicator-success {
+	@extend .status-indicator;
+	background: #00d905;
+}
+
+.status-indicator-warn {
+	@extend .status-indicator;
+	background: #e8e000;
+}
+
+.status-indicator-down {
+	@extend .status-indicator;
+	background: #e80000;
+}
+#sidebar-title {
+	font-family: 'Montserrat', sans-serif;
+	color: #fff;
+
+	padding: 20px;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+#logout {
+
+}
+
+#content {
+	flex: 4;
 }
