@@ -37,11 +37,13 @@ io.on('connection', function(socket) {
  	});
 
  	socket.on('increaseCounter', function(socket, data) {
- 	 	models.application.filter({name: data.name, key: data.key}).getJoin().then(function(app, err) {
-
+ 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
+ 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instace, err) {
+ 	 			//instance.
+ 	 		});
  	 	});
  	});
- 	
+
   	socket.on('decreseCounter', function(socket) {
  	 	console.log('decreseCounter');
  	});

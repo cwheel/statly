@@ -15,9 +15,8 @@ var Application = Thinky.createModel("Application", {
 
 var Instance = Thinky.createModel("Instance", {
 	id: String,
+	name: String,
 	loadAvg: Array,
-	username: String,
-	password: String,
 	counters: Object
 });
 
