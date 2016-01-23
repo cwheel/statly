@@ -13,6 +13,7 @@
     "angular-bootstrap" : "latest",
     "moment" : "latest",
     "angular-ui-router" : "latest",
-    "jquery" : "latest"
+    "jquery" : "latest",
+    "socket.io" : "latest"
   }
 }

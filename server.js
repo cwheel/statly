@@ -38,7 +38,7 @@ http.listen(3000, function() {
 
 io.on('connection', function(socket) {
 
-	socket.on('initServer',function(socket){
+	socket.on('initServer',function(socket) {
 	 	socket.on('loadAvg', function(socket, data) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 			models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
@@ -49,7 +49,7 @@ io.on('connection', function(socket) {
 	 		});
 	 	});
 
-	 	socket.on('increaseCounter', function(socket, data) {
+	 	socket.on('increaseCounter', function(data) {
 	 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
 	 	 			if(instance.counters == undefined) instance.counters = {};
@@ -60,7 +60,7 @@ io.on('connection', function(socket) {
 	 	 	});
 	 	});
 
-	  	socket.on('decreseCounter', function(socket, data) {
+	  	socket.on('decreseCounter', function(data) {
 	 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
 	 	 			if(instance.counters == undefined) instance.counters = {};
@@ -71,7 +71,7 @@ io.on('connection', function(socket) {
 	 	 	});
 	 	});
 
-	 	socket.on('clockReport', function(socket, data) {
+	 	socket.on('clockReport', function(data) {
 	 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
 		 	 		var route = new models.timedRoute({
@@ -88,7 +88,7 @@ io.on('connection', function(socket) {
 	 	 	});
 	 	});
 
-	 	socket.on('pathLoaded', function(socket,data) {
+	 	socket.on('pathLoaded', function(data) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 			models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
 		 	 		var route = new models.loadedRoute({
@@ -102,7 +102,7 @@ io.on('connection', function(socket) {
 		 	});
 	 	});
 
-	 	socket.on('bandwidthUsed', function(socket,data) {
+	 	socket.on('bandwidthUsed', function(data) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
 	 	 			if(instance.bandwith == undefined) instance.bandwith = 0;
@@ -111,8 +111,7 @@ io.on('connection', function(socket) {
 	 	 		});
 	 	 	});
 	 	});
-
-	 	socket.on('log',function(socket,data){
+	 	socket.on('log',function(data){
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
 	 	 			var log = new modules.logs({
@@ -127,7 +126,6 @@ io.on('connection', function(socket) {
 	 	 	});
 	 	});
 	});
-<<<<<<< HEAD
 	socket.on('initClient',function(socket, data){
 	  	models.user.filter({username: username}).limit(1).then(function(user, err) {
 	  		if (bcrypt.compareSync(data.password, user.password)) {
@@ -141,16 +139,12 @@ io.on('connection', function(socket) {
 
 				});
 				socket.on('getUser', function(socket,data){
-
+					socket.emit('recieveUser',user.getJoin());
 				});
 				socket.on('registerObserverForUser', function(socket,data){
 
 				});
 				socket.on('removeObserverForUser', function(socket,data){
-=======
-
-	socket.on('initClient',function(socket){
->>>>>>> c308bce18c5dcb42f54150de21a21a82ffc193b7
 
 				});
 	  		}
