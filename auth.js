@@ -10,7 +10,7 @@ module.exports = function(app) {
 	});
 
 	Passport.use('local', new PassportLocal(function(username, password, done) {
-		models.User.filter({username: username}).limit(1).then(function(user, err) {
+		models.user.filter({username: username}).limit(1).then(function(user, err) {
 		        user = user[0];
 
 		  		if (err) {

@@ -44,7 +44,7 @@ app.get('/test', function(req, res) {
     res.send("hi");
 });
 
-app.use(statly.initialize(app, "client", "key", "test_application", "/static"));
+app.use(statly.initialize(app, "client", "key", "test_application", "test_instance", "/static"));
 
 
 app.use(express.static(__dirname + "/static"));
