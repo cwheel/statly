@@ -37,7 +37,7 @@ module.exports = function(app) {
 	});
 
 	app.get("/authed", function(req, res) {
-		if (req.isAuthenticated) {
+		if (req.isAuthenticated()) {
 			res.send("true");
 		} else {
 			res.send("false");
