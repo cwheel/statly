@@ -8,7 +8,8 @@
     "cookie-parser": "latest",
     "express-session": "latest",
     "passport": "latest",
-    "passport-local": "latest"
+    "passport-local": "latest",
+    "socket.io-client": "latest"
   },
   "devDependencies": {
     "gulp-develop-server": "^0.5.0"

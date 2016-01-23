@@ -17,6 +17,7 @@
     "gulp-shell": "latest",
     "mongoose": "latest",
     "passport": "latest",
-    "passport-local": "latest"
+    "passport-local": "latest",
+    "socket.io": "^1.4.4"
   }
 }
