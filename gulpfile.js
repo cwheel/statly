@@ -15,10 +15,10 @@ gulp.task('scss', function() {
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('db', shell.task(["rethink"]));
+gulp.task('db', shell.task(["rethinkdb"]));
 
 gulp.task('watch', function() {
-  	gulp.watch('./app/scss/**/*.scss', ['scss']);
+  	gulp.watch('./public/scss/**/*.scss', ['scss']);
 });
 
 gulp.task('server:start', function() {

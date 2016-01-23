@@ -12,6 +12,7 @@
     "angular-chart.js" : "latest",
     "angular-bootstrap" : "latest",
     "moment" : "latest",
-    "angular-ui-router" : "latest"
+    "angular-ui-router" : "latest",
+    "jquery" : "latest"
   }
 }

@@ -1,4 +1,4 @@
-mainController.$inject = ['$scope', '$state']
+mainController.$inject = ['$scope', '$state', '$http']
 loginController.$inject = ['$scope', '$state', '$http']
 dashboardController.$inject = ['$scope','$state']
 
