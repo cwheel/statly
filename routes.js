@@ -13,7 +13,6 @@ module.exports = function(app) {
 		var app = new models.application({name: req.body.name, key: req.body.key});
 
 		app.save().then(function(saved) {
-			console.log(saved.id);
 			res.send(saved.id);
 		});
 	});
