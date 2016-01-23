@@ -1,0 +1,38 @@
+2016-01-23T08:55:40.662122000 0.287352s notice: Recursively removing directory /Users/James/code/statly/rethinkdb_data/tmp
+2016-01-23T08:55:40.665339000 0.290579s notice: Initializing directory /Users/James/code/statly/rethinkdb_data
+2016-01-23T08:55:40.665468000 0.290697s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/Users/James/code/statly/rethinkdb_data' did not already exist or is empty.)
+2016-01-23T08:55:40.667363000 0.292593s notice: Running rethinkdb 2.1.5-2 (CLANG 7.0.0 (clang-700.0.72))...
+2016-01-23T08:55:40.672006000 0.297236s notice: Running on Darwin 15.2.0 x86_64
+2016-01-23T08:55:40.672057000 0.297285s notice: Loading data from directory /Users/James/code/statly/rethinkdb_data
+2016-01-23T08:55:40.827769000 0.452998s info: Automatically using cache size of 531 MB
+2016-01-23T08:55:40.828788000 0.454017s notice: Listening for intracluster connections on port 29015
+2016-01-23T08:55:40.835365000 0.460593s notice: Listening for client driver connections on port 28015
+2016-01-23T08:55:40.835513000 0.460742s notice: Listening for administrative HTTP connections on port 8080
+2016-01-23T08:55:40.835519000 0.460747s notice: Listening on addresses: 127.0.0.1, ::1
+2016-01-23T08:55:40.835519001 0.460748s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2016-01-23T08:55:40.835522000 0.460750s notice: Server ready, "Stitch_local_ys0" ddf4bf3b-d236-4a39-87b2-34eec02356db
+2016-01-23T08:55:48.819197000 8.444143s notice: A newer version of the RethinkDB server is available: 2.2.3-1. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2016-01-23T08:56:02.953991000 22.578494s info: Table d956c0d6-3164-4686-bbef-fa3e77590925: Added replica on this server.
+2016-01-23T08:56:02.983507000 22.608009s info: Table efffcb7f-f2e5-4b11-9443-5047d649c08f: Added replica on this server.
+2016-01-23T08:56:02.983999000 22.608501s info: Table 344ace1b-b93d-48e8-91a4-b2014b2e469c: Added replica on this server.
+2016-01-23T08:56:02.996213000 22.620715s info: Table 0b359136-3a43-4455-bbcd-44eb72e05d3f: Added replica on this server.
+2016-01-23T08:56:03.006737000 22.631238s info: Table 31a6f470-32d2-4384-9c48-6bf0f3abd0ee: Added replica on this server.
+2016-01-23T08:56:04.083373000 23.707815s info: Table 31a6f470-32d2-4384-9c48-6bf0f3abd0ee: Starting a new Raft election for term 1.
+2016-01-23T08:56:04.111416000 23.735857s info: Table 31a6f470-32d2-4384-9c48-6bf0f3abd0ee: This server is Raft leader for term 1. Latest log index is 0.
+2016-01-23T08:56:04.316652000 23.941094s info: Table 0b359136-3a43-4455-bbcd-44eb72e05d3f: Starting a new Raft election for term 1.
+2016-01-23T08:56:04.380283000 24.004725s info: Table 0b359136-3a43-4455-bbcd-44eb72e05d3f: This server is Raft leader for term 1. Latest log index is 0.
+2016-01-23T08:56:04.386178000 24.010620s info: Table 344ace1b-b93d-48e8-91a4-b2014b2e469c: Starting a new Raft election for term 1.
+2016-01-23T08:56:04.395853000 24.020294s info: Table efffcb7f-f2e5-4b11-9443-5047d649c08f: Starting a new Raft election for term 1.
+2016-01-23T08:56:04.477277000 24.101719s info: Table 344ace1b-b93d-48e8-91a4-b2014b2e469c: This server is Raft leader for term 1. Latest log index is 0.
+2016-01-23T08:56:04.477358000 24.101800s info: Table efffcb7f-f2e5-4b11-9443-5047d649c08f: This server is Raft leader for term 1. Latest log index is 0.
+2016-01-23T08:56:04.884688000 24.509130s info: Table d956c0d6-3164-4686-bbef-fa3e77590925: Starting a new Raft election for term 1.
+2016-01-23T08:56:04.965010000 24.589452s info: Table d956c0d6-3164-4686-bbef-fa3e77590925: This server is Raft leader for term 1. Latest log index is 0.
+2016-01-23T08:56:05.196270000 24.820711s info: Table 344ace1b-b93d-48e8-91a4-b2014b2e469c: Configuration is changing.
+2016-01-23T08:56:05.221342000 24.845784s info: Table 0b359136-3a43-4455-bbcd-44eb72e05d3f: Configuration is changing.
+2016-01-23T08:56:05.250771000 24.875213s info: Table 31a6f470-32d2-4384-9c48-6bf0f3abd0ee: Configuration is changing.
+2016-01-23T08:56:06.428781000 26.053162s info: Table d956c0d6-3164-4686-bbef-fa3e77590925: Configuration is changing.
+2016-01-23T12:32:34.962296000 12780.372484s notice: Server got SIGINT from pid 35919, uid 501; shutting down...
+2016-01-23T12:32:34.962505000 12780.372693s notice: Shutting down client connections...
+2016-01-23T12:32:34.962863000 12780.373051s notice: All client connections closed.
+2016-01-23T12:32:34.962870000 12780.373058s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2016-01-23T12:32:34.983066000 12780.393254s notice: Storage engine shut down.
