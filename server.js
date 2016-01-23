@@ -156,15 +156,21 @@ io.on('connection', function(socket) {
 	  			});
 
 	  			socket.on('getUser', function(data) {
-	  				socket.emit('recieveUser',user);
+	  				socket.emit('recieveUser', user);
 	  			});
 
 	  			socket.on('registerObserverForUser', function(data) {
+	  				models.application.changes().then(function(feed) {
+						feed.each(function(error, doc) {
+							socket.emit('recieveUser', user);
+						});
+	  				});
 
-	  			});
-
-	  			socket.on('removeObserverForUser', function(data) {
-
+	  				models.instance.changes().then(function(feed) {
+						feed.each(function(error, doc) {
+							socket.emit('recieveUser', user);
+						});
+	  				});
 	  			});
 
 	  			socket.emit('initComplete');

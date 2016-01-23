@@ -21,16 +21,20 @@ function dashboardController($scope, $state, $http, $rootScope) {
 
 				$rootScope.socket.on('initComplete', function () {
 					$rootScope.socket.emit('getUser');
+					$rootScope.socket.emit('registerObserverForUser');
 					$rootScope.socket.on('recieveUser', function(user) {
-						console.log(user);
+						$scope.user = user;
+						$scope.$apply();
 					});
 				});	
 			}
 		});
 	} else {
 		$rootScope.socket.emit('getUser');
+		$rootScope.socket.emit('registerObserverForUser');
 		$rootScope.socket.on('recieveUser', function(user) {
-			console.log(user);
+			$scope.user = user;
+			$scope.$apply();
 		});
 	}
 

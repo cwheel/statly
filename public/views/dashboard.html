@@ -14,13 +14,13 @@
 		<div id="sidebar-title">statly</div>
 
 		<ul>
-			<li ng-repeat="(app, instances) in apps">
+			<li ng-repeat="app in user.applications">
 				<heading>
-					<i class="fa fa-server"></i> {{app}}
+					<i class="fa fa-server"></i> {{app.name}}
 				</heading>
 
 				<ul>
-					<li ng-repeat="i in instances" ng-click="itemSelected(app, i)" ng-class="{'selected-sidebar-row' : app == application && i == instance}">
+					<li ng-repeat="i in app.instances" ng-click="itemSelected(app, i)" ng-class="{'selected-sidebar-row' : app == application && i == instance}">
 						<div class="status-indicator-success"></div><span>{{i}}</span>
 					</li>
 				</ul>
