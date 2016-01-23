@@ -1,7 +1,33 @@
-<html>
+<html ng-app="statly">
 	<head>
-	</head>
-	<body>
-		Testa 
+		<!-- Angular (Removed .min for readable errors) -->
+		<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+		<script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
+
+		<!-- AngularUI Router -->
+		<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+		<!-- FontAwsome -->
+		<link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
+
+		<!-- Angular module -->
+		<script type="text/javascript" src="controller/main.js"></script>
+		<script type="text/javascript" src="controller/login.js"></script>
+		<script type="text/javascript" src="controller/dashboard.js"></script>
+		<script type="text/javascript" src="statly.js"></script>
+
+
+		<!-- Style -->
+		<link rel="stylesheet" type="text/css" href="statly.css">
+
+		<title>statly</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	</head>	
+	<body ng-controller="mainController">
+		<div ui-view style="height:100%;width:100%"></div>
 	</body>
 </html>

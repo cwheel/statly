@@ -1,0 +1,17 @@
+{
+  "name": "statly",
+  "version": "0.0.1",
+  "dependencies": {
+    "bootstrap": "latest",
+    "font-awesome": "latest",
+    "jquery" : "latest",
+    "angular" : "latest",
+    "angular-route" : "latest",
+    "angular-animate" : "latest",
+    "cryptojslib" : "latest",
+    "angular-chart.js" : "latest",
+    "angular-bootstrap" : "latest",
+    "moment" : "latest",
+    "angular-ui-router" : "latest"
+  }
+}

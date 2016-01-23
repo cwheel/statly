@@ -1,0 +1,3 @@
+function dashboardController($scope, $state) {
+
+}

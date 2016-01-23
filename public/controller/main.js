@@ -1,0 +1,2 @@
+function mainController($scope, $state) {
+}
