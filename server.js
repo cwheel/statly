@@ -18,6 +18,8 @@ app.use(bodyParser.urlencoded({
  	extended: true
 }));
 
+//new models.User({name: "Test User", email: "test@test.com", username: "test", password: BCrypt.hashSync("test", BCrypt.genSaltSync(10))}).save();
+
 app.use(Passport.initialize());
 app.use(Passport.session());
 
