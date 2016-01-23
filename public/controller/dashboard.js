@@ -40,5 +40,16 @@ function dashboardController($scope, $state, $http) {
 
 	$scope.completeNewApp = function() {
 		$scope.showAddContainer = false;
+
+		$http({
+			url: "/newApplication",
+			method: 'POST',
+			data: $.param({name : $scope.newApp, key : $scope.newKey}),
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		}).success(function(data) {
+			console.log(data);
+		}).error(function(err) {
+			console.error("Failed to create new application");
+		});	
 	};
 }

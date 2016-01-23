@@ -1,4 +1,4 @@
-
+var models = require('./models');
 
 module.exports = function(app) {
 	function requireAuth(req, res, next) {
@@ -8,5 +8,13 @@ module.exports = function(app) {
 
 	  	res.redirect('/');
 	}
-	app.get('/data/listApps')
+
+	app.post('/newApplication', requireAuth, function(req, res) {
+		var app = new models.application({name: req.body.name, key: req.body.key});
+
+		app.save().then(function(saved) {
+			console.log(saved.id);
+			res.send(saved.id);
+		});
+	});
 }

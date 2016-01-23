@@ -6,7 +6,7 @@ var PassportLocal = require('passport-local');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var cookies = require('cookie-parser');
-var models = require('./models')
+var models = require('./models');
 
 var app = express(); 
 var http = require('http').Server(app);
@@ -30,12 +30,14 @@ app.use(Passport.initialize());
 app.use(Passport.session());
 
 require('./auth')(app);
+require('./routes')(app);
 
 http.listen(3000, function() {
  	console.log('listening on *:3000');
 });
 
 io.on('connection', function(socket) {
+
 	socket.on('initServer',function(socket){
 	 	socket.on('loadAvg', function(socket, data) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
@@ -125,6 +127,7 @@ io.on('connection', function(socket) {
 	 	 	});
 	 	});
 	});
+
 	socket.on('initClient',function(socket){
 
 	});
