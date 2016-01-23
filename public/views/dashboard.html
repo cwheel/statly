@@ -1,4 +1,13 @@
-<div id="add-model-container" show-add="showAddContainer"></div>
+<div id="add-model-container" show-add="showAddContainer">
+	<div id="add-pane">
+		<div id="add-title">Application Name and Key</div>
+		<input type="text" placeholder="Application Name" id="new-app-name" ng-model="newApp"/>
+		<div id="add-pane-key">{{ newKey }}</div>
+
+		<div class="button" ng-click="completeNewApp()">Confirm</div>
+		<div class="button-cancel" ng-click="showAddContainer = false">Cancel</div>
+	</div>
+</div>
 
 <div id="dashboard-container">
 	<div id="sidebar">
