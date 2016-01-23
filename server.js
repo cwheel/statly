@@ -64,26 +64,33 @@ io.on('connection', function(socket) {
 
  	socket.on('clockReport', function(socket, data) {
  	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
- 	 		var route = new models.timedRoute({
- 	 			user: data.user,
- 	 			route: data.route,
- 	 			time: data.time,
- 	 			date: new Date()
+ 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+	 	 		var route = new models.timedRoute({
+	 	 			user: data.user,
+	 	 			route: data.route,
+	 	 			time: data.time,
+	 	 			date: new Date()
+	 	 		});
+	 	 		if(instance.timedRoute == undefined) instance.timedRoute = [];
+	 	 		instance.timedRoute.push(route);
+	 	 		instance.saveAll();
+	 	 		console.log('clockReport');
  	 		});
- 	 		if(app.timedRoute == undefined) app.timedRoute = [];
- 	 		app.timedRoute.push(route);
- 	 	console.log('clockReport');
+ 	 	});
  	});
 
  	socket.on('pathLoaded', function(socket,data) {
  		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
- 	 		var route = new models.loadedRoute({
-				user: data.user,
-				route: data.route
- 	 		});
- 	 		if(app.loadedRoute == undefined) app.loadedRoute = [];
- 	 		app.loadedRoute.push(route);
- 	 	console.log('clockReport');
+ 			models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+	 	 		var route = new models.loadedRoute({
+					user: data.user,
+					route: data.route
+	 	 		});
+	 	 		if(instance.loadedRoute == undefined) instance.loadedRoute = [];
+	 	 		instance.loadedRoute.push(route);
+	 	 		console.log('clockReport');
+	 	 	});
+	 	});
  	});
 
  	socket.on('bandwidthUsed', function(socket,data) {

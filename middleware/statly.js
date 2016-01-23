@@ -39,7 +39,7 @@ module.exports = {
 		critical : 3
 	},
 	log: function(level, message) {
-		
+		sendData('log', {level:level,message:message})
 	},
 	increaseCounter: function(counter) {
 		sendData('increaseCounter', {counter: counter});
