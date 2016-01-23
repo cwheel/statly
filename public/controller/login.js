@@ -13,9 +13,9 @@ function loginController($scope, $state, $http) {
 				},
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			}).success(function(data) {
-				console.log("test");
+				console.log("successful login");
 			}).error(function(err) {
-				console.log("test2");
+				console.log("falied login");
 			});		
 		}
 	}
