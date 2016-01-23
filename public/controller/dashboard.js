@@ -19,10 +19,12 @@ function dashboardController($scope, $state, $http, $rootScope) {
 				$rootScope.socket = io('http://localhost:3000');
 				$rootScope.socket.emit('initClient', data);
 
-				$rootScope.socket.emit('getUser');
-				$rootScope.socket.on('recieveUser', function(user) {
-					console.log(user);
-				});
+				$rootScope.socket.on('initComplete', function () {
+					$rootScope.socket.emit('getUser');
+					$rootScope.socket.on('recieveUser', function(user) {
+						console.log(user);
+					});
+				});	
 			}
 		});
 	} else {

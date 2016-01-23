@@ -22,9 +22,11 @@ function loginController($scope, $state, $http, $rootScope) {
 				$rootScope.socket = io('http://localhost:3000');
 				$rootScope.socket.emit('initClient', {username: $scope.user, password: $scope.pass});
 
-				$state.go("dashboard");
+				$rootScope.socket.on('initComplete', function () {
+					$state.go("dashboard");
+				});
 			}).error(function(err) {
-				console.log("falied login");
+				console.error("Falied to login");
 			});		
 		}
 	}

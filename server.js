@@ -137,7 +137,11 @@ io.on('connection', function(socket) {
 	  				authed = true;
 	  			}
 	  		} else {
-	  			if (app.socketKeys[data.username] == data.key) {
+	  			console.log(app.socketKeys);
+	  			console.log(data.key);
+	  			console.log(data);
+	  			console.log(app.socketKeys[data.username]);
+	  			if (app.socketKeys[data.user] == data.key) {
 	  				authed = true;
 	  			}
 	  		}
@@ -166,6 +170,8 @@ io.on('connection', function(socket) {
 	  			socket.on('removeObserverForUser', function(data) {
 
 	  			});
+
+	  			socket.emit('initComplete');
 	  		}
 	    });
 	});
