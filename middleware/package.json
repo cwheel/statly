@@ -1,0 +1,16 @@
+{
+  "name": "test_app",
+  "version": "0.0.1",
+  "main": "test_app.js",
+  "dependencies": {
+    "body-parser": "latest",
+    "express": "latest",
+    "cookie-parser": "latest",
+    "express-session": "latest",
+    "passport": "latest",
+    "passport-local": "latest"
+  },
+  "devDependencies": {
+    "gulp-develop-server": "^0.5.0"
+  }
+}
