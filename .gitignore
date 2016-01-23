@@ -1,1 +1,5 @@
 middleware/node_modules
+node_modules
+bower_components
+public/bower_components
+db

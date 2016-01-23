@@ -1,0 +1,22 @@
+{
+  "name": "statly",
+  "version": "0.1.0",
+  "description": "Statistics for your node application",
+  "main": "server.js",
+  "dependencies": {
+    "bcrypt": "^0.8.5",
+    "body-parser": "^1.14.2",
+    "express": "latest",
+    "express-session": "latest",
+    "gulp": "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-concat": "latest",
+    "gulp-develop-server": "latest",
+    "gulp-minify-css": "latest",
+    "gulp-sass": "latest",
+    "gulp-shell": "latest",
+    "mongoose": "latest",
+    "passport": "latest",
+    "passport-local": "latest"
+  }
+}
