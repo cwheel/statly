@@ -38,10 +38,30 @@ app.get('/login', passport.authenticate('local'), function(req, res) {
     res.send("authed in test app");
 });
 
-app.get('/test', function(req, res) {
+app.get('/profile', function(req, res) {
+    statly.clockRequest(req, res);
+    res.send("profile");
+});
+
+app.get('/friends_list', function(req, res) {
+    statly.clockRequest(req, res);
+    res.send("profile");
+});
+
+app.get('/process_text', function(req, res) {
     statly.clockRequest(req, res);
 
-    res.send("hi");
+    setTimeout(function() {
+        res.send("process_text");
+    }, 1000*60*4)
+});
+
+app.get('/reply', function(req, res) {
+    statly.clockRequest(req, res);
+
+    setTimeout(function() {
+        res.send("process_text");
+    }, 1000*60*Math.random()*10)
 });
 
 app.use(statly.initialize(app, "client", "key", "test_application", "test_instance", "/static"));
