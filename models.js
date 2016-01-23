@@ -7,6 +7,41 @@ var User = Thinky.createModel("User", {
 	password: String
 });
 
+var Application = Thinky.createModel("Application", {
+	id: String,
+	name: String,
+	key: String
+});
+
+var Instance = Thinky.createModel("Instance", {
+	id: String,
+	name: String,
+	loadAvg: Array,
+	counters: Object
+});
+
+var LoadedRoute = Thinky.createModel("LoadedRoute", {
+	id: String,
+	user: String,
+	route: String
+});
+
+var TimedRoute = Thinky.createModel("TimedRoute", {
+	id: String,
+	user: String,
+	route: String,
+	time: Number
+});
+
+User.hasMany(Application, "applications", "id", "userId");
+Application.hasMany(Instance, "instances", "id", "applicationId");
+Instance.hasMany(LoadedRoute, "loadedRoutes", "id", "instanceId");
+Instance.hasMany(LoadedRoute, "timedRoutes", "id", "instanceId");
+
 module.exports = {
-	User: User
+	user: User,
+	application: Application,
+	instance: Instance,
+	loadedRoute: LoadedRoute,
+	timedRoute: TimedRoute
 };

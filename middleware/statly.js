@@ -3,6 +3,7 @@ var _app;
 var _staticDir;
 var _client;
 var _key;
+var _instance;
 var _routes = [];
 
 var fs = require("fs");
@@ -11,14 +12,14 @@ var socket = require("socket.io-client")('http://localhost:3000');
 
 function sendData(tag, props) {
 	if (socket == undefined) {
-		throw "Socket undefined, connection likely failed. Check network connection."
+		throw "Socket undefined, connection likely failed. Check network connection.";
 	} else {
 		if (socket.connected) {
 			props.client = _client;
 			props.key = _key;
 			props.appName = _appName;
+			props.instance = _instance;
 
-			console.log("Sending: " + tag + " " +  props);
 			socket.emit(tag, props);
 		}
 	}
@@ -64,7 +65,7 @@ module.exports = {
 		    };
 		})();
 	},
-	initialize: function (app, client, key, appName, staticDir) {
+	initialize: function (app, client, key, appName, instance, staticDir) {
 		if (app == undefined) {
 			throw "Application must be defined, not initializing."
 		}
@@ -78,6 +79,7 @@ module.exports = {
 		_staticDir = staticDir;
 		_client = client;
 		_key = key;
+		_instance = instance;
 
 		app._router.stack.forEach(function(r){
 		  if (r.route && r.route.path){

@@ -38,11 +38,15 @@ io.on('connection', function(socket) {
  	 	console.log('loadAvg');
  	});
 
- 	socket.on('increaseCounter', function(socket) {
- 	 	console.log('increaseCounter');
+ 	socket.on('increaseCounter', function(socket, data) {
+ 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
+ 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instace, err) {
+ 	 			//instance.
+ 	 		});
+ 	 	});
  	});
 
- 	socket.on('decreseCounter', function(socket) {
+  	socket.on('decreseCounter', function(socket) {
  	 	console.log('decreseCounter');
  	});
 
