@@ -18,5 +18,9 @@ var statly = angular.module('statly', ['ngAnimate','ui.router'])
 				url: '/dashboard',
 				templateUrl: 'views/dashboard.html',
 				controller: 'dashboardController'
-			})		
+			})
+			.state('dashboard.overview',{
+				url: '/dashboard/overview',
+				templateUrl: 'views/dashboard/overview.html',
+			})	
 	}]);
