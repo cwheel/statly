@@ -1,0 +1,36 @@
+<div id="dashboard-container">
+	<div id="sidebar">
+		<div id="sidebar-title">statly</div>
+
+		<ul>
+			<li ng-repeat="(app, instances) in apps">
+				<heading>
+					<i class="fa fa-server"></i> {{app}}
+				</heading>
+
+				<ul>
+					<li ng-repeat="i in instances" ng-click="itemSelected(app, i)" ng-class="{'selected-sidebar-row' : app == application && i == instance}">
+						<div class="status-indicator-success"></div><span>{{i}}</span>
+					</li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+
+	<div id="content">
+		<div id="content-title">
+			<div id="app-title">{{application}}</div>
+			<div id="instance-title">{{instance}}</div>
+		</div>
+
+		<select id="pane-chooser" ng-click="paneChanged()" ng-model="pane">
+			<option value="overview">Overview</option>
+			<option value="users">Users</option>
+			<option value="execution">Execution Time</option>
+			<option value="counters">Counters</option>
+		</select>
+
+		<div ui-view id="view"></div>
+	</div>
+</div>

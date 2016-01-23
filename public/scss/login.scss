@@ -1,5 +1,6 @@
-.vertical-align {
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
+@import "var";
+
+#login-container {
+	background-color: $content-color;
+	height: 100%;
 }

@@ -5,29 +5,31 @@ var Passport = require('passport');
 var PassportLocal = require('passport-local');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var cookies = require('cookie-parser');
 var models = require('./models')
 
 var app = express(); 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-require('./auth')(app);
-
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({
  	extended: true
 }));
 
-//new models.User({name: "Test User", email: "test@test.com", username: "test", password: BCrypt.hashSync("test", BCrypt.genSaltSync(10))}).save();
+//new models.user({name: "Test User", username: "test", password: BCrypt.hashSync("test", BCrypt.genSaltSync(10))}).save();
 
-app.use(Passport.initialize());
-app.use(Passport.session());
-
+app.use(cookies());
 app.use(session({ 
 	secret: 'testsecret', 
 	saveUninitialized: true, 
 	resave: true
 }));
+
+app.use(Passport.initialize());
+app.use(Passport.session());
+
+require('./auth')(app);
 
 http.listen(3000, function() {
  	console.log('listening on *:3000');

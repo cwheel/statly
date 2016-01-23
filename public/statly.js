@@ -1,6 +1,6 @@
-mainController.$inject = ['$scope', '$state']
-loginController.$inject = ['$scope', '$state', '$http']
-dashboardController.$inject = ['$scope','$state']
+mainController.$inject = ['$scope', '$state', '$http'];
+loginController.$inject = ['$scope', '$state', '$http'];
+dashboardController.$inject = ['$scope','$state', '$http'];
 
 var statly = angular.module('statly', ['ngAnimate','ui.router'])
 	.controller('mainController',mainController)
@@ -18,5 +18,9 @@ var statly = angular.module('statly', ['ngAnimate','ui.router'])
 				url: '/dashboard',
 				templateUrl: 'views/dashboard.html',
 				controller: 'dashboardController'
-			})		
+			})
+			.state('dashboard.overview',{
+				url: '/dashboard/overview',
+				templateUrl: 'views/dashboard/overview.html',
+			})	
 	}]);
