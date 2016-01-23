@@ -5,27 +5,22 @@ var _client;
 var _key;
 var _routes = [];
 
-var socket;
-
 var fs = require("fs");
 var os = require("os");
-var io = require("socket.io-client");
+var socket = require("socket.io-client")('http://localhost:3000');
 
 function sendData(tag, props) {
 	if (socket == undefined) {
 		throw "Socket undefined, connection likely failed. Check network connection."
 	} else {
-		if (!socket.connected) {
-			socket = io.connect('localhost', {
-			    port: 3000
-			});
+		if (socket.connected) {
+			props.client = _client;
+			props.key = _key;
+			props.appName = _appName;
+
+			console.log("Sending: " + tag + " " +  props);
+			socket.emit(tag, props);
 		}
-
-		props.client = _client;
-		props.key = _key;
-		props.appName = _appName;
-
-		socket.emit(tag, props);
 	}
 }
 
@@ -88,10 +83,6 @@ module.exports = {
 		  if (r.route && r.route.path){
 		    _routes.push(r.route.path);
 		  }
-		});
-
-		socket = io.connect('localhost', {
-		    port: 3000
 		});
 
 		sendLoadAvg();

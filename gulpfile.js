@@ -15,7 +15,7 @@ gulp.task('scss', function() {
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('db', shell.task(["mongod --dbpath=db"]));
+gulp.task('db', shell.task(["rethink"]));
 
 gulp.task('watch', function() {
   	gulp.watch('./app/scss/**/*.scss', ['scss']);

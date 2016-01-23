@@ -5,24 +5,17 @@ var Passport = require('passport');
 var PassportLocal = require('passport-local');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var models = require('./models')
 
 var app = express(); 
-var io = require('socket.io')(http);
 var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
-require('./auth')();
-
-mongoose.connect("mongodb://localhost/statly");
+require('./auth')(app);
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({
  	extended: true
-}));
-
-app.post('/login', Passport.authenticate('local', { successRedirect: '/login/success', failureRedirect: '/login/failure', failureFlash: false }));
-
-Passport.use(new PassportLocal(function(username,password,done){
-
 }));
 
 app.use(Passport.initialize());
@@ -39,5 +32,27 @@ http.listen(3000, function() {
 });
 
 io.on('connection', function(socket) {
- 	console.log('a client connected');
+ 	socket.on('loadAvg', function(socket) {
+ 	 	console.log('loadAvg');
+ 	});
+
+ 	socket.on('increaseCounter', function(socket) {
+ 	 	console.log('increaseCounter');
+ 	});
+
+ 	socket.on('decreseCounter', function(socket) {
+ 	 	console.log('decreseCounter');
+ 	});
+
+ 	socket.on('clockReport', function(socket) {
+ 	 	console.log('clockReport');
+ 	});
+
+ 	socket.on('pathLoaded', function(socket) {
+ 	 	console.log('pathLoaded');
+ 	});
+
+ 	socket.on('bandwidthUsed', function(socket) {
+ 	 	console.log('bandwidthUsed');
+ 	});
 });
