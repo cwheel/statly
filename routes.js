@@ -10,11 +10,20 @@ module.exports = function(app) {
 	}
 
 	app.post('/newApplication', requireAuth, function(req, res) {
-		var app = new models.application({name: req.body.name, key: req.body.key});
+ 		models.user.filter({username: req.user.username}).getJoin().then(function(user, err) {
+ 			user = user[0];
 
-		app.save().then(function(saved) {
-			res.send(saved.id);
-		});
+ 	 		if (user.applications == undefined) {
+ 	 			user.applications = [];
+ 	 		}
+
+ 	 		var app = new models.application({name: req.body.name, key: req.body.key});
+
+ 	 		user.applications.push(app);
+ 	 		user.saveAll().then(function(saved) {
+ 	 			res.send(saved);
+ 	 		}); 
+ 	 	});
 	});
 
 	app.get('/socketKey', function(req, res) {

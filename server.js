@@ -137,10 +137,6 @@ io.on('connection', function(socket) {
 	  				authed = true;
 	  			}
 	  		} else {
-	  			console.log(app.socketKeys);
-	  			console.log(data.key);
-	  			console.log(data);
-	  			console.log(app.socketKeys[data.username]);
 	  			if (app.socketKeys[data.user] == data.key) {
 	  				authed = true;
 	  			}
