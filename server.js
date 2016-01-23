@@ -109,7 +109,7 @@ io.on('connection', function(socket) {
 	 	 		});
 	 	 	});
 	 	});
-	 	
+
 	 	socket.on('log',function(socket,data){
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
@@ -125,8 +125,29 @@ io.on('connection', function(socket) {
 	 	 	});
 	 	});
 	});
-	socket.on('initClient',function(socket){
+	socket.on('initClient',function(socket, data){
+	  	models.user.filter({username: username}).limit(1).then(function(user, err) {
+	  		if (bcrypt.compareSync(data.password, user.password)) {
+				socket.on('registerObserverForInstance', function(socket,data){
+						
+				});
+				socket.on('removeObserverForInstance', function(socket,data){
 
+				});
+				socket.on('getInstance', function(socket,data){
+
+				});
+				socket.on('getUser', function(socket,data){
+
+				});
+				socket.on('registerObserverForUser', function(socket,data){
+
+				});
+				socket.on('removeObserverForUser', function(socket,data){
+
+				});
+	  		}
+	    });
 	});
 });
 
