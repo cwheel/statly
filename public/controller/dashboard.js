@@ -28,7 +28,17 @@ function dashboardController($scope, $state, $http) {
 	};
 
 	$scope.addNewApp = function() {
-		console.log("s");
+	    var set = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	    $scope.newKey = "";
+
+	    for (var i = 0; i < 30; i++) {
+	        $scope.newKey += set.charAt(Math.floor(Math.random() * set.length));
+	    }
+
 		$scope.showAddContainer = true;
-	}
+	};
+
+	$scope.completeNewApp = function() {
+		$scope.showAddContainer = false;
+	};
 }

@@ -126,9 +126,112 @@
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	
+
 	z-index: 100;
 
 	background: rgba(1,1,1,0.75);
 	transition: all 0.3s;
+}
+
+#add-pane {
+	width: 600px;
+	height: 300px;
+	margin: auto;
+	margin-top: 150px;
+	position: relative;
+
+	background: #fff;
+	border: 2px solid $sidebar-color;
+	border-radius: 3px;
+
+	text-align: center;
+
+	.button {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+	}
+
+	.button-cancel {
+		position: absolute;
+		bottom: 10px;
+		right: 100px;
+	}
+}
+
+#add-pane-key {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 500;
+	font-size: 25px;
+
+	color: #dbdbdb;
+	text-align: center;
+}
+
+input {
+	transition: all 0.3s;
+	outline: 0;
+
+	border: 1px solid #dbdbdb;
+
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 500;
+	font-size: 18px;
+
+	text-align: center;
+
+	color: #666;
+
+	&:hover {
+		border: 1px solid $sidebar-color;
+	}
+
+	&:focus {
+		border: 1px solid $sidebar-color;
+	}
+}
+
+#new-app-name {
+	width: 80%;
+	margin-bottom: 20px;
+	margin-top: 75px;
+}
+
+#add-title {
+	color: $sidebar-color;
+
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 500;
+	margin-top: 15px;
+
+	font-size: 15px;
+}
+
+.button {
+	width: 70px;
+	border-radius: 3px;
+	border: 1px solid $sidebar-color;
+
+	color: $sidebar-color;
+	font-family: 'Montserrat', sans-serif;
+	padding: 5px;
+
+	cursor: pointer;
+	transition: all 0.3s;
+
+	&:hover {
+		border-color: darken($sidebar-color, 15);
+		color: darken($sidebar-color, 15);
+	}
+}
+
+.button-cancel {
+	@extend .button;
+	border-color: darken(#dbdbdb, 15);
+	color: darken(#dbdbdb, 15);
+
+	&:hover {
+		border-color: darken(#dbdbdb, 25);
+		color: darken(#dbdbdb, 25);
+	}
 }
