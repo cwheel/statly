@@ -16,4 +16,8 @@ module.exports = function(app) {
 			res.send(saved.id);
 		});
 	});
+
+	app.get('/socketKey', requireAuth, function(req, res) {
+		
+	});
 }

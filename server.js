@@ -37,7 +37,7 @@ http.listen(3000, function() {
 });
 
 io.on('connection', function(socket) {
-	socket.on('initServer',function(socket) {
+	socket.on('initServer', function(socket) {
 	 	socket.on('loadAvg', function(socket, data) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 			models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
@@ -110,7 +110,7 @@ io.on('connection', function(socket) {
 	 	 		});
 	 	 	});
 	 	});
-	 	socket.on('log',function(data){
+	 	socket.on('log', function(data) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
 	 	 			var log = new modules.logs({
@@ -125,25 +125,33 @@ io.on('connection', function(socket) {
 	 	 	});
 	 	});
 	});
-	socket.on('initClient',function(socket, data){
-	  	models.user.filter({username: username}).limit(1).then(function(user, err) {
-	  		if (bcrypt.compareSync(data.password, user.password)) {
-				socket.on('registerObserverForInstance', function(socket,data){
+
+	socket.on('initClient', function(data) {
+	  	models.user.filter({username: data.username}).limit(1).getJoin({applications: {instances: true}}).then(function(user, err) {
+	  		user = user[0];
+
+	  		if (BCrypt.compareSync(data.password, user.password)) {
+				socket.on('registerObserverForInstance', function(data){
 						
 				});
-				socket.on('removeObserverForInstance', function(socket,data){
+
+				socket.on('removeObserverForInstance', function(data){
 
 				});
-				socket.on('getInstance', function(socket,data){
+
+				socket.on('getInstance', function(data) {
 
 				});
-				socket.on('getUser', function(socket,data){
-					socket.emit('recieveUser',user.getJoin());
+
+				socket.on('getUser', function(data) {
+					socket.emit('recieveUser',user);
 				});
-				socket.on('registerObserverForUser', function(socket,data){
+
+				socket.on('registerObserverForUser', function(data) {
 
 				});
-				socket.on('removeObserverForUser', function(socket,data){
+
+				socket.on('removeObserverForUser', function(data) {
 
 				});
 	  		}

@@ -8,6 +8,10 @@ function dashboardController($scope, $state, $http, $rootScope) {
 		}
 	});
 
+	if ($rootScope.socket == undefined) {
+		$state.go("login");
+	}
+	
 	$rootScope.socket.emit('getUser');
 	$rootScope.socket.on('recieveUser', function(user) {
 		console.log(user);
