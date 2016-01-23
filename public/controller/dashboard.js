@@ -1,4 +1,4 @@
-function dashboardController($scope, $state, $http) {
+function dashboardController($scope, $state, $http, $rootScope) {
 	$http({
 		url: "/authed",
 		method: 'GET'
@@ -6,6 +6,11 @@ function dashboardController($scope, $state, $http) {
 		if (!data == "true") {
 			$state.go("login");
 		}
+	});
+
+	$rootScope.socket.emit('getUser');
+	$rootScope.socket.on('recieveUser', function(user) {
+		console.log(user);
 	});
 
 	$scope.pane = "overview";

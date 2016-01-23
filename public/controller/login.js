@@ -20,7 +20,6 @@ function loginController($scope, $state, $http, $rootScope) {
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			}).success(function(data) {
 				$rootScope.socket = io('http://localhost:3000');
-				console.log({username: $scope.user, password: $scope.pass});
 				$rootScope.socket.emit('initClient', {username: $scope.user, password: $scope.pass});
 
 				$state.go("dashboard");

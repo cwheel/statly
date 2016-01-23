@@ -37,7 +37,6 @@ http.listen(3000, function() {
 });
 
 io.on('connection', function(socket) {
-
 	socket.on('initServer',function(socket) {
 	 	socket.on('loadAvg', function(socket, data) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
