@@ -36,72 +36,98 @@ http.listen(3000, function() {
 });
 
 io.on('connection', function(socket) {
- 	socket.on('loadAvg', function(socket) {
- 	 	console.log('loadAvg');
- 	});
+	socket.on('initServer',function(socket){
+	 	socket.on('loadAvg', function(socket, data) {
+	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
+	 			models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+	 				if(instance.loadAvg == undefined) instance.counters = [];
+	 				instance.loadAvg.push(data)
+	 				instance.saveAll();
+	 			});
+	 		});
+	 	});
 
- 	socket.on('increaseCounter', function(socket, data) {
- 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
- 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
- 	 			if(instance.counters == undefined) instance.counters = {};
- 	 			if (instance.counters[data.counter] == undefined) instance.counters[data.counter] = 1;
- 	 			else instance.counters[data.counter] += 1;
- 	 			instance.saveAll();
- 	 		});
- 	 	});
- 	});
-
-  	socket.on('decreseCounter', function(socket, data) {
- 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
- 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
- 	 			if(instance.counters == undefined) instance.counters = {};
- 	 			if (instance.counters[data.counter] == undefined) instance.counters[data.counter] = 0;
- 	 			else instance.counters[data.counter] -= 1;
- 	 			instance.saveAll();
- 	 		});
- 	 	});
- 	});
-
- 	socket.on('clockReport', function(socket, data) {
- 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
- 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
-	 	 		var route = new models.timedRoute({
-	 	 			user: data.user,
-	 	 			route: data.route,
-	 	 			time: data.time,
-	 	 			date: new Date()
+	 	socket.on('increaseCounter', function(socket, data) {
+	 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
+	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+	 	 			if(instance.counters == undefined) instance.counters = {};
+	 	 			if (instance.counters[data.counter] == undefined) instance.counters[data.counter] = 1;
+	 	 			else instance.counters[data.counter] += 1;
+	 	 			instance.saveAll();
 	 	 		});
-	 	 		if(instance.timedRoute == undefined) instance.timedRoute = [];
-	 	 		instance.timedRoute.push(route);
-	 	 		instance.saveAll();
-	 	 		console.log('clockReport');
- 	 		});
- 	 	});
- 	});
-
- 	socket.on('pathLoaded', function(socket,data) {
- 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
- 			models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
-	 	 		var route = new models.loadedRoute({
-					user: data.user,
-					route: data.route
-	 	 		});
-	 	 		if(instance.loadedRoute == undefined) instance.loadedRoute = [];
-	 	 		instance.loadedRoute.push(route);
-	 	 		console.log('clockReport');
 	 	 	});
 	 	});
- 	});
 
- 	socket.on('bandwidthUsed', function(socket,data) {
- 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
- 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
- 	 			if(instance.bandwith == undefined) instance.bandwith = 0;
- 	 			instance.bandwith += data.bytes;
- 	 			instance.saveAll();
- 	 		});
- 	 	});
- 	});
+	  	socket.on('decreseCounter', function(socket, data) {
+	 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
+	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+	 	 			if(instance.counters == undefined) instance.counters = {};
+	 	 			if (instance.counters[data.counter] == undefined) instance.counters[data.counter] = 0;
+	 	 			else instance.counters[data.counter] -= 1;
+	 	 			instance.saveAll();
+	 	 		});
+	 	 	});
+	 	});
+
+	 	socket.on('clockReport', function(socket, data) {
+	 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
+	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+		 	 		var route = new models.timedRoute({
+		 	 			user: data.user,
+		 	 			route: data.route,
+		 	 			time: data.time,
+		 	 			date: new Date()
+		 	 		});
+		 	 		if(instance.timedRoute == undefined) instance.timedRoute = [];
+		 	 		instance.timedRoute.push(route);
+		 	 		instance.saveAll();
+		 	 		console.log('clockReport');
+	 	 		});
+	 	 	});
+	 	});
+
+	 	socket.on('pathLoaded', function(socket,data) {
+	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
+	 			models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+		 	 		var route = new models.loadedRoute({
+						user: data.user,
+						route: data.route
+		 	 		});
+		 	 		if(instance.loadedRoute == undefined) instance.loadedRoute = [];
+		 	 		instance.loadedRoute.push(route);
+		 	 		console.log('clockReport');
+		 	 	});
+		 	});
+	 	});
+
+	 	socket.on('bandwidthUsed', function(socket,data) {
+	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
+	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+	 	 			if(instance.bandwith == undefined) instance.bandwith = 0;
+	 	 			instance.bandwith += data.bytes;
+	 	 			instance.saveAll();
+	 	 		});
+	 	 	});
+	 	});
+	 	
+	 	socket.on('log',function(socket,data){
+	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
+	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+	 	 			var log = new modules.logs({
+	 	 				level: data.level,
+						message: data.message,
+						date: new Date()
+	 	 			})
+	 	 			if(instance.log == undefined) instance.log = [];
+	 	 			instance.log.push(log);
+	 	 			instance.saveAll();
+	 	 		});
+	 	 	});
+	 	});
+	});
+	socket.on('initClient',function(socket){
+
+	});
 });
 
 

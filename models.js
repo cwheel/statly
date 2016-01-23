@@ -35,15 +35,24 @@ var TimedRoute = Thinky.createModel("TimedRoute", {
 	date: Date
 });
 
+var Log = Thinky.createModel("Log",{
+	id: String,
+	level: Number,
+	message: String,
+	date: Date
+})
+
 User.hasMany(Application, "applications", "id", "userId");
 Application.hasMany(Instance, "instances", "id", "applicationId");
 Instance.hasMany(LoadedRoute, "loadedRoutes", "id", "instanceId");
 Instance.hasMany(TimedRoute, "timedRoutes", "id", "instanceId");
+Instance.hasMany(Log,"log","id","instanceId")
 
 module.exports = {
 	user: User,
 	application: Application,
 	instance: Instance,
 	loadedRoute: LoadedRoute,
-	timedRoute: TimedRoute
+	timedRoute: TimedRoute,
+	log: Log,
 };
