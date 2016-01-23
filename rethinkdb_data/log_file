@@ -36,3 +36,93 @@
 2016-01-23T12:32:34.962863000 12780.373051s notice: All client connections closed.
 2016-01-23T12:32:34.962870000 12780.373058s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
 2016-01-23T12:32:34.983066000 12780.393254s notice: Storage engine shut down.
+2016-01-23T13:06:41.259948000 0.267398s notice: Running rethinkdb 2.2.1 (CLANG 4.2 (clang-425.0.28))...
+2016-01-23T13:06:41.264805000 0.272250s notice: Running on Darwin 15.2.0 x86_64
+2016-01-23T13:06:41.264843000 0.272287s notice: Loading data from directory /Users/cameron/Desktop/statly/rethinkdb_data
+2016-01-23T13:06:41.267352000 0.274796s notice: Rewriting cluster metadata for v2.2
+2016-01-23T13:06:41.271200000 0.278644s notice: Migrating file to serializer version 2.2.
+2016-01-23T13:06:41.300872000 0.308317s info: Automatically using cache size of 157 MB
+2016-01-23T13:06:41.301892000 0.309337s notice: Listening for intracluster connections on port 29015
+2016-01-23T13:06:41.317599000 0.325044s notice: Migrating file to serializer version 2.2.
+2016-01-23T13:06:41.330243000 0.337687s notice: Migrating file to serializer version 2.2.
+2016-01-23T13:06:41.340307000 0.347752s notice: Migrating file to serializer version 2.2.
+2016-01-23T13:06:41.350816000 0.358260s notice: Migrating file to serializer version 2.2.
+2016-01-23T13:06:41.361833000 0.369277s notice: Migrating file to serializer version 2.2.
+2016-01-23T13:06:41.363333000 0.370777s warn: Table statly.LoadedRoute (0b359136-3a43-4455-bbcd-44eb72e05d3f) contains these outdated indexes which should be recreated: 'instanceId'
+2016-01-23T13:06:41.363339000 0.370783s warn: Table statly.Application (31a6f470-32d2-4384-9c48-6bf0f3abd0ee) contains these outdated indexes which should be recreated: 'userId'
+2016-01-23T13:06:41.363341000 0.370785s warn: Table statly.Instance (344ace1b-b93d-48e8-91a4-b2014b2e469c) contains these outdated indexes which should be recreated: 'applicationId'
+2016-01-23T13:06:41.363342000 0.370786s warn: Table statly.TimedRoute (d956c0d6-3164-4686-bbef-fa3e77590925) contains these outdated indexes which should be recreated: 'instanceId'
+2016-01-23T13:06:41.364185000 0.371629s notice: Listening for client driver connections on port 28015
+2016-01-23T13:06:41.364279000 0.371723s notice: Listening for administrative HTTP connections on port 8080
+2016-01-23T13:06:41.364280000 0.371724s notice: Listening on addresses: 127.0.0.1, ::1
+2016-01-23T13:06:41.364281000 0.371725s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2016-01-23T13:06:41.364299000 0.371743s notice: Server ready, "Stitch_local_ys0" ddf4bf3b-d236-4a39-87b2-34eec02356db
+2016-01-23T13:06:41.778996000 0.786441s notice: A newer version of the RethinkDB server is available: 2.2.3-1. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2016-01-23T13:06:42.436659000 1.444159s info: Table 344ace1b-b93d-48e8-91a4-b2014b2e469c: Starting a new Raft election for term 2.
+2016-01-23T13:06:42.479667000 1.487168s info: Table 0b359136-3a43-4455-bbcd-44eb72e05d3f: Starting a new Raft election for term 2.
+2016-01-23T13:06:42.500741000 1.508241s info: Table 344ace1b-b93d-48e8-91a4-b2014b2e469c: This server is Raft leader for term 2. Latest log index is 4.
+2016-01-23T13:06:42.507665000 1.515166s info: Table 0b359136-3a43-4455-bbcd-44eb72e05d3f: This server is Raft leader for term 2. Latest log index is 4.
+2016-01-23T13:06:42.728415000 1.735916s info: Table d956c0d6-3164-4686-bbef-fa3e77590925: Starting a new Raft election for term 2.
+2016-01-23T13:06:42.743515000 1.751016s info: Table d956c0d6-3164-4686-bbef-fa3e77590925: This server is Raft leader for term 2. Latest log index is 4.
+2016-01-23T13:06:43.226451000 2.233952s info: Table efffcb7f-f2e5-4b11-9443-5047d649c08f: Starting a new Raft election for term 2.
+2016-01-23T13:06:43.237451000 2.244952s info: Table efffcb7f-f2e5-4b11-9443-5047d649c08f: This server is Raft leader for term 2. Latest log index is 3.
+2016-01-23T13:06:43.292332000 2.299832s info: Table 31a6f470-32d2-4384-9c48-6bf0f3abd0ee: Starting a new Raft election for term 2.
+2016-01-23T13:06:43.302985000 2.310486s info: Table 31a6f470-32d2-4384-9c48-6bf0f3abd0ee: This server is Raft leader for term 2. Latest log index is 4.
+2016-01-23T13:07:16.723927000 35.732384s notice: Server got SIGINT from pid 10187, uid 501; shutting down...
+2016-01-23T13:07:16.724291000 35.732748s notice: Shutting down client connections...
+2016-01-23T13:07:16.724431000 35.732887s notice: All client connections closed.
+2016-01-23T13:07:16.724437000 35.732893s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2016-01-23T13:07:17.982292000 0.004929s notice: Running rethinkdb 2.2.1 (CLANG 4.2 (clang-425.0.28))...
+2016-01-23T13:07:17.986403000 0.009037s notice: Running on Darwin 15.2.0 x86_64
+2016-01-23T13:07:17.986444000 0.009077s notice: Loading data from directory /Users/cameron/Desktop/statly/rethinkdb_data
+2016-01-23T13:07:18.006375000 0.029008s info: Automatically using cache size of 127 MB
+2016-01-23T13:07:18.008200000 0.030834s notice: Listening for intracluster connections on port 29015
+2016-01-23T13:07:18.058942000 0.081575s warn: Table statly.LoadedRoute (0b359136-3a43-4455-bbcd-44eb72e05d3f) contains these outdated indexes which should be recreated: 'instanceId'
+2016-01-23T13:07:18.058951000 0.081584s warn: Table statly.Application (31a6f470-32d2-4384-9c48-6bf0f3abd0ee) contains these outdated indexes which should be recreated: 'userId'
+2016-01-23T13:07:18.058957000 0.081591s warn: Table statly.Instance (344ace1b-b93d-48e8-91a4-b2014b2e469c) contains these outdated indexes which should be recreated: 'applicationId'
+2016-01-23T13:07:18.058959000 0.081592s warn: Table statly.TimedRoute (d956c0d6-3164-4686-bbef-fa3e77590925) contains these outdated indexes which should be recreated: 'instanceId'
+2016-01-23T13:07:18.060263000 0.082897s notice: Listening for client driver connections on port 28015
+2016-01-23T13:07:18.060420000 0.083054s notice: Listening for administrative HTTP connections on port 8080
+2016-01-23T13:07:18.060422000 0.083055s notice: Listening on addresses: 127.0.0.1, ::1
+2016-01-23T13:07:18.060423000 0.083056s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2016-01-23T13:07:18.060435000 0.083068s notice: Server ready, "Stitch_local_ys0" ddf4bf3b-d236-4a39-87b2-34eec02356db
+2016-01-23T13:07:18.433221000 0.455855s notice: A newer version of the RethinkDB server is available: 2.2.3-1. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2016-01-23T13:07:19.112138000 1.134827s info: Table 31a6f470-32d2-4384-9c48-6bf0f3abd0ee: Starting a new Raft election for term 3.
+2016-01-23T13:07:19.123400000 1.146090s info: Table 31a6f470-32d2-4384-9c48-6bf0f3abd0ee: This server is Raft leader for term 3. Latest log index is 7.
+2016-01-23T13:07:19.250461000 1.273150s info: Table 0b359136-3a43-4455-bbcd-44eb72e05d3f: Starting a new Raft election for term 3.
+2016-01-23T13:07:19.259942000 1.282632s info: Table 0b359136-3a43-4455-bbcd-44eb72e05d3f: This server is Raft leader for term 3. Latest log index is 7.
+2016-01-23T13:07:19.301718000 1.324408s info: Table 344ace1b-b93d-48e8-91a4-b2014b2e469c: Starting a new Raft election for term 3.
+2016-01-23T13:07:19.310168000 1.332857s info: Table 344ace1b-b93d-48e8-91a4-b2014b2e469c: This server is Raft leader for term 3. Latest log index is 7.
+2016-01-23T13:07:19.366001000 1.388691s info: Table d956c0d6-3164-4686-bbef-fa3e77590925: Starting a new Raft election for term 3.
+2016-01-23T13:07:19.377634000 1.400323s info: Table d956c0d6-3164-4686-bbef-fa3e77590925: This server is Raft leader for term 3. Latest log index is 7.
+2016-01-23T13:07:19.802603000 1.825293s info: Table efffcb7f-f2e5-4b11-9443-5047d649c08f: Starting a new Raft election for term 3.
+2016-01-23T13:07:19.813164000 1.835853s info: Table efffcb7f-f2e5-4b11-9443-5047d649c08f: This server is Raft leader for term 3. Latest log index is 6.
+2016-01-23T13:07:26.307754000 8.330612s notice: Server got SIGINT from pid 10187, uid 501; shutting down...
+2016-01-23T13:07:26.308231000 8.331088s notice: Shutting down client connections...
+2016-01-23T13:07:26.311533000 8.334391s notice: All client connections closed.
+2016-01-23T13:07:26.311545000 8.334403s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2016-01-23T13:07:27.881867000 0.004653s notice: Running rethinkdb 2.2.1 (CLANG 4.2 (clang-425.0.28))...
+2016-01-23T13:07:27.885329000 0.008112s notice: Running on Darwin 15.2.0 x86_64
+2016-01-23T13:07:27.885358000 0.008141s notice: Loading data from directory /Users/cameron/Desktop/statly/rethinkdb_data
+2016-01-23T13:07:27.901376000 0.024159s info: Automatically using cache size of 111 MB
+2016-01-23T13:07:27.902141000 0.024924s notice: Listening for intracluster connections on port 29015
+2016-01-23T13:07:27.964059000 0.086842s warn: Table statly.LoadedRoute (0b359136-3a43-4455-bbcd-44eb72e05d3f) contains these outdated indexes which should be recreated: 'instanceId'
+2016-01-23T13:07:27.964075000 0.086857s warn: Table statly.Application (31a6f470-32d2-4384-9c48-6bf0f3abd0ee) contains these outdated indexes which should be recreated: 'userId'
+2016-01-23T13:07:27.964081000 0.086864s warn: Table statly.Instance (344ace1b-b93d-48e8-91a4-b2014b2e469c) contains these outdated indexes which should be recreated: 'applicationId'
+2016-01-23T13:07:27.964083000 0.086866s warn: Table statly.TimedRoute (d956c0d6-3164-4686-bbef-fa3e77590925) contains these outdated indexes which should be recreated: 'instanceId'
+2016-01-23T13:07:27.965482000 0.088265s notice: Listening for client driver connections on port 28015
+2016-01-23T13:07:27.965682000 0.088465s notice: Listening for administrative HTTP connections on port 8080
+2016-01-23T13:07:27.965683000 0.088466s notice: Listening on addresses: 127.0.0.1, ::1
+2016-01-23T13:07:27.965684000 0.088467s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2016-01-23T13:07:27.965685000 0.088467s notice: Server ready, "Stitch_local_ys0" ddf4bf3b-d236-4a39-87b2-34eec02356db
+2016-01-23T13:07:28.350086000 0.472869s notice: A newer version of the RethinkDB server is available: 2.2.3-1. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2016-01-23T13:07:29.022468000 1.145308s info: Table d956c0d6-3164-4686-bbef-fa3e77590925: Starting a new Raft election for term 4.
+2016-01-23T13:07:29.033977000 1.156816s info: Table d956c0d6-3164-4686-bbef-fa3e77590925: This server is Raft leader for term 4. Latest log index is 10.
+2016-01-23T13:07:29.056083000 1.178922s info: Table 344ace1b-b93d-48e8-91a4-b2014b2e469c: Starting a new Raft election for term 4.
+2016-01-23T13:07:29.067519000 1.190358s info: Table 344ace1b-b93d-48e8-91a4-b2014b2e469c: This server is Raft leader for term 4. Latest log index is 10.
+2016-01-23T13:07:29.344202000 1.467041s info: Table efffcb7f-f2e5-4b11-9443-5047d649c08f: Starting a new Raft election for term 4.
+2016-01-23T13:07:29.353245000 1.476084s info: Table efffcb7f-f2e5-4b11-9443-5047d649c08f: This server is Raft leader for term 4. Latest log index is 9.
+2016-01-23T13:07:29.613992000 1.736831s info: Table 0b359136-3a43-4455-bbcd-44eb72e05d3f: Starting a new Raft election for term 4.
+2016-01-23T13:07:29.626455000 1.749294s info: Table 0b359136-3a43-4455-bbcd-44eb72e05d3f: This server is Raft leader for term 4. Latest log index is 10.
+2016-01-23T13:07:29.872912000 1.995751s info: Table 31a6f470-32d2-4384-9c48-6bf0f3abd0ee: Starting a new Raft election for term 4.
+2016-01-23T13:07:29.888219000 2.011058s info: Table 31a6f470-32d2-4384-9c48-6bf0f3abd0ee: This server is Raft leader for term 4. Latest log index is 10.
