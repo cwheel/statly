@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({
  	extended: true
 }));
 
+app.socketKeys = {};
 //new models.user({name: "Test User", username: "test", password: BCrypt.hashSync("test", BCrypt.genSaltSync(10))}).save();
 
 app.use(cookies());
@@ -130,30 +131,41 @@ io.on('connection', function(socket) {
 	  	models.user.filter({username: data.username}).limit(1).getJoin({applications: {instances: true}}).then(function(user, err) {
 	  		user = user[0];
 
-	  		if (BCrypt.compareSync(data.password, user.password)) {
-				socket.on('registerObserverForInstance', function(data){
-						
-				});
+	  		var authed = false;
+	  		if (data.password != undefined) {
+	  			if (BCrypt.compareSync(data.password, user.password)) {
+	  				authed = true;
+	  			}
+	  		} else {
+	  			if (app.socketKeys[data.username] == data.key) {
+	  				authed = true;
+	  			}
+	  		}
 
-				socket.on('removeObserverForInstance', function(data){
+	  		if (authed) {
+	  			socket.on('registerObserverForInstance', function(data){
+	  					
+	  			});
 
-				});
+	  			socket.on('removeObserverForInstance', function(data){
 
-				socket.on('getInstance', function(data) {
+	  			});
 
-				});
+	  			socket.on('getInstance', function(data) {
 
-				socket.on('getUser', function(data) {
-					socket.emit('recieveUser',user);
-				});
+	  			});
 
-				socket.on('registerObserverForUser', function(data) {
+	  			socket.on('getUser', function(data) {
+	  				socket.emit('recieveUser',user);
+	  			});
 
-				});
+	  			socket.on('registerObserverForUser', function(data) {
 
-				socket.on('removeObserverForUser', function(data) {
+	  			});
 
-				});
+	  			socket.on('removeObserverForUser', function(data) {
+
+	  			});
 	  		}
 	    });
 	});

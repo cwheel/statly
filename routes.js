@@ -17,7 +17,18 @@ module.exports = function(app) {
 		});
 	});
 
-	app.get('/socketKey', requireAuth, function(req, res) {
-		
+	app.get('/socketKey', function(req, res) {
+		if (req.isAuthenticated()) {
+			var set = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			app.socketKeys[req.user.username] = "";
+
+			for (var i = 0; i < 30; i++) {
+			    app.socketKeys[req.user.username] += set.charAt(Math.floor(Math.random() * set.length));
+			}
+
+			res.send({user: req.user.username, key: app.socketKeys[req.user.username]});
+		} else {
+			res.send("invalid");
+		}
 	});
 }

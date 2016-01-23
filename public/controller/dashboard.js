@@ -9,13 +9,28 @@ function dashboardController($scope, $state, $http, $rootScope) {
 	});
 
 	if ($rootScope.socket == undefined) {
-		$state.go("login");
+		$http({
+			url: "/socketKey",
+			method: 'GET'
+		}).success(function(data) {
+			if (data == "invalid") {
+				$state.go("login");
+			} else {
+				$rootScope.socket = io('http://localhost:3000');
+				$rootScope.socket.emit('initClient', data);
+
+				$rootScope.socket.emit('getUser');
+				$rootScope.socket.on('recieveUser', function(user) {
+					console.log(user);
+				});
+			}
+		});
+	} else {
+		$rootScope.socket.emit('getUser');
+		$rootScope.socket.on('recieveUser', function(user) {
+			console.log(user);
+		});
 	}
-	
-	$rootScope.socket.emit('getUser');
-	$rootScope.socket.on('recieveUser', function(user) {
-		console.log(user);
-	});
 
 	$scope.pane = "overview";
 	$scope.showAddContainer = false;
