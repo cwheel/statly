@@ -11,7 +11,7 @@
 }
 
 #app-title {
-	font-size: 30;
+	font-size: 20;
 	font-family: 'Montserrat', sans-serif;
 	font-weight: 700;
 
@@ -26,7 +26,7 @@
 }
 
 #content-title {
-	padding-top: 15px;
+	padding-top: 26px;
 }
 
 #pane-chooser {
@@ -85,6 +85,10 @@
 			}
 		}
 	}
+}
+
+.list-view-selected-row {
+	background: lighten($sidebar-color, 20);
 }
 
 .info-box {
