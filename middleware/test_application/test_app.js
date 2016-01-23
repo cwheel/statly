@@ -34,8 +34,6 @@ passport.deserializeUser(function(user, done) {
     done(null, user)
 });
 
-app.use(statly.initialize());
-
 app.get('/login', passport.authenticate('local'), function(req, res) {
     res.send("authed in test app");
 });
@@ -46,5 +44,9 @@ app.get('/test', function(req, res) {
     res.send("hi");
 });
 
+app.use(statly.initialize(app, "test_application", "/static"));
+
+
+app.use(express.static(__dirname + "/static"));
 app.listen(3001);
 exports = module.exports = app;
