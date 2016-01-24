@@ -38,8 +38,15 @@ http.listen(3000, function() {
 });
 
 io.on('connection', function(socket) {
-	socket.on('initServer', function(socket) {
+	socket.on('initServer', function(data) {
+		console.log(data.appName);
 		models.application.filter({name: data.appName}).getJoin().then(function(app, err) {
+			app = app[0];
+			
+			if (app.instances == undefined) {
+				app.instances = [];
+			}
+
 			var found = false;
 			for (var i = app.instances.length - 1; i >= 0; i--) {
 				if (app.instances[i].name == data.instance) {
@@ -59,12 +66,10 @@ io.on('connection', function(socket) {
 	 	});
 
 	 	socket.on('sys', function(data) {
-	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
-	 			models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
-	 				instance.sys = data.sys;
-	 				instance.saveAll();
-	 			});
-	 		});
+ 			models.instance.filter({name: data.instance}).getJoin().then(function(instance, err) {
+ 				instance.sys = data.sys;
+ 				instance.save();
+ 			});
 	 	});
 
 	 	socket.on('loadAvg', function(socket, data) {

@@ -24,6 +24,10 @@ function dashboardController($scope, $state, $http, $rootScope) {
 					$rootScope.socket.emit('registerObserverForUser');
 					$rootScope.socket.on('recieveUser', function(user) {
 						$scope.user = user;
+
+						$scope.application = $scope.user.applications[0].name;
+						$scope.instance = $scope.user.applications[0].instances[0].name;
+
 						$scope.$apply();
 					});
 				});	
@@ -34,17 +38,16 @@ function dashboardController($scope, $state, $http, $rootScope) {
 		$rootScope.socket.emit('registerObserverForUser');
 		$rootScope.socket.on('recieveUser', function(user) {
 			$scope.user = user;
+
+			$scope.application = $scope.user.applications[0].name;
+			$scope.instance = $scope.user.applications[0].instances[0].name;
+			
 			$scope.$apply();
 		});
 	}
 
 	$scope.pane = "overview";
 	$scope.showAddContainer = false;
-
-	$scope.apps = {"Test Application" : ["Node 1", "Node 2", "Node 3"], "Another Application" : ["Node 1", "Node 2"]};
-
-	$scope.application = Object.keys($scope.apps)[0];
-	$scope.instance = $scope.apps[$scope.application][0];
 
 	$state.go('dashboard.overview');
 

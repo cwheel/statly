@@ -19,7 +19,6 @@ function sendData(tag, props) {
 			props.key = _key;
 			props.appName = _appName;
 			props.instance = _instance;
-
 			socket.emit(tag, props);
 		}
 	}
@@ -91,7 +90,7 @@ module.exports = {
 		_key = key;
 		_instance = instance;
 
-		sendData('initServer');
+		
 
 		app._router.stack.forEach(function(r){
 		  if (r.route && r.route.path){
@@ -99,7 +98,10 @@ module.exports = {
 		  }
 		});
 
-		sendLoadAvg();
+		socket.on('connect', function () {
+			sendData('initServer', {});
+        	//sendLoadAvg();
+        });
 
 		return function(req, res, next) {
 			if (req.user == undefined) {
