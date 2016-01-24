@@ -159,16 +159,34 @@ io.on('connection', function(socket) {
 	  				socket.emit('recieveUser', user);
 	  			});
 
+	  			socket.on('getStats', function(data) {
+	  				var stats = {};
+
+	  				models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+
+	  				});
+
+	  				socket.emit('recieveStats', stats);
+	  			});
+
+	  			socket.on('registerObserverForInstance', function(data){
+
+	  			});
+
 	  			socket.on('registerObserverForUser', function(data) {
 	  				models.application.changes().then(function(feed) {
 						feed.each(function(error, doc) {
-							socket.emit('recieveUser', user);
+							if (doc.username == data.username) {
+								socket.emit('recieveUser', doc);
+							}
 						});
 	  				});
 
 	  				models.instance.changes().then(function(feed) {
 						feed.each(function(error, doc) {
-							socket.emit('recieveUser', user);
+							if (doc.username == data.username) {
+								socket.emit('recieveUser', doc);
+							}
 						});
 	  				});
 	  			});
