@@ -10,17 +10,17 @@
 	<div class="row" style="padding-top: 30px;">
 		<div class="col-md-6">
 			<div class="info-box" style="margin-right: 20px;">
-				<i class="fa fa-calendar large-icon" style="padding-top: 5px;"></i>
+				<i class="fa fa-calendar med-icon" style="padding-top: 5px;"></i>
 				<div class="text-area">
 					<div class="title">System Time</div>
-					<div class="sub">{{ usertime[selected] }} milliseconds of server time</div>
-					<div class="sub">Average user spent {{ avgTime }} milliseconds</div>
+					<div class="sub">{{ usertime[selected].toFixed(3) }} milliseconds of server time</div>
+					<div class="sub">Average user spent {{ avgTime.toFixed(3) }} milliseconds</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-6">
 			<div class="info-box" style="margin-left: 20px;">
-				<i class="fa fa-server large-icon-server"></i>
+				<i class="fa fa-server med-icon"></i>
 
 				<div class="text-area">
 					<div class="title">Endpoints Requested</div>
