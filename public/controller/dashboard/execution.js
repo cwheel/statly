@@ -1,6 +1,5 @@
 function executionController($scope, $state, $http, $rootScope) {
 	if($rootScope.instanceData != undefined){
-		console.log("ITS HAPPENING");
 		var timedRoutes = $rootScope.instanceData.timedRoutes;
 		$scope.routes = {};
 		if(timedRoutes != undefined){
