@@ -131,10 +131,10 @@ io.on('connection', function(socket) {
 						user: data.user,
 						route: data.route
 		 	 		});
-		 	 		if(instance.loadedRoute == undefined) instance.loadedRoute = [];
-		 	 		instance.loadedRoute.push(route);
+
+		 	 		if(instance.loadedRoutes == undefined) instance.loadedRoutes = [];
+		 	 		instance.loadedRoutes.push(route);
 		 	 		instance.saveAll();
-		 	 		console.log('clockReport');
 		 	 	});
 		 	});
 	 	});

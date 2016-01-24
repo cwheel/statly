@@ -2,11 +2,13 @@ mainController.$inject = ['$scope', '$state', '$http', '$rootScope'];
 loginController.$inject = ['$scope', '$state', '$http', '$rootScope'];
 dashboardController.$inject = ['$scope','$state', '$http', '$rootScope'];
 overviewController.$inject = ['$scope','$state', '$http', '$rootScope'];
+usersController.$inject = ['$scope','$state', '$http', '$rootScope'];
 
-var statly = angular.module('statly', ['ngAnimate','ui.router', 'chart.js'])
+var statly = angular.module('statly', ['ngAnimate','ui.router', 'chart.js', 'anim-in-out'])
 	.controller('mainController',mainController)
 	.controller('loginController',loginController)
 	.controller('dashboardController',dashboardController)
+	.controller('usersController',usersController)
 	.controller('overviewController',overviewController)
 	.config(['$stateProvider','$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
 		$urlRouterProvider.otherwise("/");
@@ -25,6 +27,11 @@ var statly = angular.module('statly', ['ngAnimate','ui.router', 'chart.js'])
 				url: '/overview',
 				templateUrl: 'views/dashboard/overview.html',
 				controller: 'overviewController'
+			})
+			.state('dashboard.users',{
+				url: '/overview',
+				templateUrl: 'views/dashboard/users.html',
+				controller: 'usersController'
 			})	
 	}]);
 
