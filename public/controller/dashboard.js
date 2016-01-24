@@ -1,4 +1,5 @@
 function dashboardController($scope, $state, $http, $rootScope) {
+	$scope.colors = {};
 	$http({
 		url: "/authed",
 		method: 'GET'
@@ -7,6 +8,21 @@ function dashboardController($scope, $state, $http, $rootScope) {
 			$state.go("login");
 		}
 	});
+
+	$scope.getColor = function(appName, item) {
+		if ($scope.colors[appName] == undefined) {
+			return "status-indicator-green";
+		} else if ($scope.colors[appName][item] == undefined) {
+			return "status-indicator-green";
+		} else {
+			return "status-indicator-" + $scope.colors[appName][item];
+		}
+	};
+
+	$scope.setColor = function(appName, instance, color) {
+		if ($scope.colors[appName] == undefined) $scope.colors[appName] = {}
+		$scope.colors[appName][instance] = color;
+	}
 
 	if ($rootScope.socket == undefined) {
 		$http({
@@ -27,7 +43,10 @@ function dashboardController($scope, $state, $http, $rootScope) {
 						$scope.user = user;
 						
 						$scope.application = $scope.user.applications[0].name;
+						
+						try{
 						$scope.instance = $scope.user.applications[0].instances[0].name;
+						} catch (e) {}
 
 						$rootScope.instance = $scope.instance;
 						$rootScope.application = $scope.application;
@@ -40,7 +59,12 @@ function dashboardController($scope, $state, $http, $rootScope) {
 							} else {
 								$rootScope.instanceData = data;
 							}
-							
+
+							console.log($rootScope.instanceData);
+
+							$scope.setColor($scope.application, $scope.instance, "green");
+							$scope.$apply();
+
 							$rootScope.$broadcast('dataAvalible');
 						});
 
@@ -48,7 +72,8 @@ function dashboardController($scope, $state, $http, $rootScope) {
 					});
 
 					$rootScope.socket.on('appDisconnected', function(data) {
-						console.log(data);
+						$scope.setColor(data.appName, data.instance, "gray");
+						$scope.$apply();
 					});
 				});
 			}
@@ -75,6 +100,11 @@ function dashboardController($scope, $state, $http, $rootScope) {
 					$rootScope.instanceData = data;
 				}
 
+				console.log($rootScope.instanceData);
+
+				$scope.setColor($scope.application, $scope.instance, "green");
+				$scope.$apply();
+
 				$rootScope.$broadcast('dataAvalible');
 			});
 			
@@ -82,7 +112,8 @@ function dashboardController($scope, $state, $http, $rootScope) {
 		});
 
 		$rootScope.socket.on('appDisconnected', function(data) {
-			console.log(data);
+			$scope.setColor(data.appName, data.instance, "gray");
+			$scope.$apply();
 		});
 	}
 
@@ -99,7 +130,6 @@ function dashboardController($scope, $state, $http, $rootScope) {
 		$rootScope.application = app;
 
 		$rootScope.socket.emit('getInstance', $scope.instance);
-		$rootScope.socket.emit('registerObserverForInstance', $scope.instance);
 	};
 
 	$scope.paneChanged = function() {

@@ -62,7 +62,7 @@ app.get('/reply', function(req, res) {
 
 passport.authenticate('local');
 
-app.use(statly.initialize(app, "test", "0FkUNwXFzHKtCsbSdztz4hfY20dAt0", "Test", "test", "/static"));
+app.use(statly.initialize(app, "test", "H4QQk3kt8b6PNrkBLLtCum1KkrlTmB", "test3", "not_test", "/static"));
 
 app.use(express.static(__dirname + "/static"));
 app.listen(3001);

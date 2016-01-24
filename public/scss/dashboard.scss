@@ -71,24 +71,29 @@
 	height: 10px;
 	width: 10px;
 
-	margin-top: 4px;
+	margin-top: 5px;
 
 	float:left;
 }
 
-.status-indicator-success {
+.status-indicator-green {
 	@extend .status-indicator;
 	background: #00d905;
 }
 
-.status-indicator-warn {
+.status-indicator-yellow {
 	@extend .status-indicator;
 	background: #e8e000;
 }
 
-.status-indicator-down {
+.status-indicator-red {
 	@extend .status-indicator;
 	background: #e80000;
+}
+
+.status-indicator-gray {
+	@extend .status-indicator;
+	background: #999;
 }
 
 .selected-sidebar-row {
