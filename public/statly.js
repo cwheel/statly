@@ -5,6 +5,7 @@ overviewController.$inject = ['$scope','$state', '$http', '$rootScope'];
 usersController.$inject = ['$scope','$state', '$http', '$rootScope'];
 countersController.$inject = ['$scope','$state', '$http', '$rootScope'];
 executionController.$inject = ['$scope','$state', '$http', '$rootScope'];
+logController.$inject = ['$scope','$state', '$http', '$rootScope'];
 
 var statly = angular.module('statly', ['ngAnimate','ui.router', 'chart.js', 'anim-in-out'])
 	.controller('mainController',mainController)
@@ -14,6 +15,7 @@ var statly = angular.module('statly', ['ngAnimate','ui.router', 'chart.js', 'ani
 	.controller('overviewController',overviewController)
 	.controller('countersController',countersController)
 	.controller('executionController',executionController)
+	.controller('logController',logController)
 	.config(['$stateProvider','$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
 		$urlRouterProvider.otherwise("/");
 		$stateProvider
@@ -46,6 +48,11 @@ var statly = angular.module('statly', ['ngAnimate','ui.router', 'chart.js', 'ani
 				url: '/counters',
 				templateUrl: 'views/dashboard/counters.html',
 				controller: 'countersController'
+			})
+			.state('dashboard.logs',{
+				url: '/log',
+				templateUrl: 'views/dashboard/log.html',
+				controller: 'logController'
 			})
 	}]);
 
