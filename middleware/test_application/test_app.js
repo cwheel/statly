@@ -35,12 +35,12 @@ passport.deserializeUser(function(user, done) {
 });
 
 app.get('/profile', function(req, res) {
-     statly.clockRequest(req, res);
+    statly.clockRequest(req, res);
     res.send("profile");
 });
 
 app.get('/friends_list', function(req, res) {
-    statly.clockRequest(req, res);
+   // statly.clockRequest(req, res);
     statly.increaseCounter("freinds")
     res.send("profile");
 });
@@ -62,7 +62,7 @@ app.get('/reply', function(req, res) {
 
 passport.authenticate('local');
 
-app.use(statly.initialize(app, "test", "Ev3UKnQKvqXEg0BlLp7DNcBVmxpZp2", "Facebook", "another_tet11", "/static"));
+app.use(statly.initialize(app, "test", "vSQ5COljXqcfvM5fuDOq1eOxOuPcM1", "reddit", "test", "/static"));
 
 app.use(express.static(__dirname + "/static"));
 app.listen(3001);

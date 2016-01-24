@@ -1,4 +1,7 @@
-<div class="row" ng-repeat="(key,count) in counters">
-	<div class="col-md-4">{{key}}</div>
-	<div class="col-md-4">{{count}}</div>
+<div class="page-container">
+	<div class="list-view">
+		<ul>
+			<li ng-repeat="(key,Count) in counter">{{key}} <i class="fa fa-long-arrow-right"></i>{{Count}}</li>
+		</ul>
+	</div>
 </div>

@@ -31,13 +31,15 @@ function dashboardController($scope, $state, $http, $rootScope) {
 
 						$rootScope.instance = $scope.instance;
 						$rootScope.application = $scope.application;
+						$rootScope.counters = $scope.user.applications[0].instances[0].counters;
+						$rootScope.timedRoutes = $scope.user.applications[0].instances[0].timedRoutes;
 
 						$rootScope.socket.emit('getInstance', $scope.instance);
-						$rootScope.socket.emit('registerObserverForInstance', $scope.instance);
 
 						$rootScope.socket.on('recieveInstance', function(data) {
-							$rootScope.instanceData = data[0];
 							console.log(data);
+							$rootScope.instanceData = data[0];
+							
 							$rootScope.$broadcast('dataAvalible');
 						});
 
@@ -64,12 +66,11 @@ function dashboardController($scope, $state, $http, $rootScope) {
 			$rootScope.application = $scope.application;
 
 			$rootScope.socket.emit('getInstance', $scope.instance);
-			$rootScope.socket.emit('registerObserverForInstance', $scope.instance);
 
 			$rootScope.socket.on('recieveInstance', function(data) {
+				console.log(data);
 				$rootScope.instanceData = data[0];
 				$rootScope.$broadcast('dataAvalible');
-				console.log(data);
 			});
 			
 			$scope.$apply();
