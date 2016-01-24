@@ -62,10 +62,10 @@ app.get('/reply', function(req, res) {
 
 passport.authenticate('local');
 
-app.use(statly.initialize(app, "test", "2KrAbiisgWCsgPCFQ5x6woKGapUmkc", "reddit", "reddit", "/static"));
+app.use(statly.initialize(app, "test", "eO4UcdpxgEUA6ezlcRTQuhgeMd4ohN", "Car", "jeep", "/static"));
 
 setTimeout(function () {
-  console.log('test_sedn')
+  console.log('test_sedn dsafsd')
 }, 1000)
 
 app.use(express.static(__dirname + "/static"));
