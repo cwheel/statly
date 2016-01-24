@@ -181,10 +181,9 @@ io.on('connection', function(socket) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 	 		models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
 	 	 			instance = instance[0];
-
-	 	 			var log = new modules.logs({
+	 	 			var log = new models.log({
 	 	 				level: data.level,
-						message: data.message,
+						message: data.message[0],
 						date: new Date()
 	 	 			})
 	 	 			if(instance.log == undefined) instance.log = [];

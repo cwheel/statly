@@ -81,6 +81,34 @@ module.exports = {
 		})();
 	},
 	initialize: function (app, client, key, appName, instance, staticDir) {
+
+		(function(){
+		    var preservedConsoleLog = console.log;
+		    console.log = function() {
+
+		        preservedConsoleLog.apply(console, arguments);
+		        sendData('log', {level:0,message:arguments})
+		    }
+		})();
+
+		(function(){
+		    var preservedConsoleWarn = console.warn;
+		    console.warn = function() {
+
+		        preservedConsoleWarn.apply(console, arguments);
+		        sendData('log', {level:1,message:arguments})
+		    }
+		})();
+
+		(function(){
+		    var preservedConsoleError = console.error;
+		    console.error = function() {
+
+		        preservedConsoleError.apply(console, arguments);
+		        sendData('log', {level:2,message:arguments})
+		    }
+		})();
+
 		if (app == undefined) {
 			throw "Application must be defined, not initializing."
 		}

@@ -40,7 +40,7 @@ app.get('/profile', function(req, res) {
 });
 
 app.get('/friends_list', function(req, res) {
-   // statly.clockRequest(req, res);
+    statly.clockRequest(req, res);
     statly.increaseCounter("freinds")
     res.send("profile");
 });
@@ -64,6 +64,9 @@ passport.authenticate('local');
 
 app.use(statly.initialize(app, "test", "2KrAbiisgWCsgPCFQ5x6woKGapUmkc", "reddit", "reddit", "/static"));
 
+setTimeout(function () {
+  console.log('test_sedn')
+}, 1000)
 
 app.use(express.static(__dirname + "/static"));
 app.listen(3001);
