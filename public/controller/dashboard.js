@@ -24,6 +24,7 @@ function dashboardController($scope, $state, $http, $rootScope) {
 					$rootScope.socket.emit('registerObserverForUser');
 					$rootScope.socket.on('recieveUser', function(user) {
 						$scope.user = user;
+						console.log($scope.user);
 
 						$scope.application = $scope.user.applications[0].name;
 						$scope.instance = $scope.user.applications[0].instances[0].name;
@@ -37,7 +38,9 @@ function dashboardController($scope, $state, $http, $rootScope) {
 		$rootScope.socket.emit('getUser');
 		$rootScope.socket.emit('registerObserverForUser');
 		$rootScope.socket.on('recieveUser', function(user) {
+
 			$scope.user = user;
+			console.log($scope.user);
 
 			$scope.application = $scope.user.applications[0].name;
 			$scope.instance = $scope.user.applications[0].instances[0].name;

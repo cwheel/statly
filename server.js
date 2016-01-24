@@ -42,7 +42,7 @@ io.on('connection', function(socket) {
 		console.log(data.appName);
 		models.application.filter({name: data.appName}).getJoin().then(function(app, err) {
 			app = app[0];
-			
+
 			if (app.instances == undefined) {
 				app.instances = [];
 			}
@@ -253,16 +253,18 @@ io.on('connection', function(socket) {
 	  			socket.on('registerObserverForUser', function(data) {
 	  				models.application.changes().then(function(feed) {
 						feed.each(function(error, doc) {
-							models.user.filter({username: user.username}).limit(1).getJoin({applications: {instances: true}}).then(function(u, err) {
-								socket.emit("recieveUser", u);
+							models.user.filter({username: user.username}).limit(1).getJoin().then(function(u, err) {
+								console.log(u);
+								socket.emit("recieveUser", u[0]);
 							});
 						});
 	  				});
 
 	  				models.instance.changes().then(function(feed) {
 						feed.each(function(error, doc) {
-							models.user.filter({username: user.username}).limit(1).getJoin({applications: {instances: true}}).then(function(u, err) {
-								socket.emit("recieveUser", u);
+							models.user.filter({username: user.username}).limit(1).getJoin().then(function(u, err) {
+								console.log(u);
+								socket.emit("recieveUser", u[0]);
 							});
 						});
 	  				});
