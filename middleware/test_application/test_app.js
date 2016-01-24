@@ -39,17 +39,14 @@ app.get('/login', passport.authenticate('local'), function(req, res) {
 });
 
 app.get('/profile', function(req, res) {
-    statly.clockRequest(req, res);
     res.send("profile");
 });
 
 app.get('/friends_list', function(req, res) {
-    statly.clockRequest(req, res);
     res.send("profile");
 });
 
 app.get('/process_text', function(req, res) {
-    statly.clockRequest(req, res);
 
     setTimeout(function() {
         res.send("process_text");
@@ -57,8 +54,6 @@ app.get('/process_text', function(req, res) {
 });
 
 app.get('/reply', function(req, res) {
-    statly.clockRequest(req, res);
-
     setTimeout(function() {
         res.send("process_text");
     }, 1000*60*Math.random()*10)

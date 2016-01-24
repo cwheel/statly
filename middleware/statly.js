@@ -56,24 +56,6 @@ module.exports = {
 	decreseCounter: function(counter) {
 		sendData('decreseCounter', {counter: counter});
 	},
-	clockRequest: function(req, res) {
-		var start = process.hrtime();
-
-		res.end = (function() {
-		    var cached = res.end;
-
-		    return function() {
-		        var end = process.hrtime(start);
-		        var ms = (end[0]*1000) + (end[1]/1000000);
-
-		        sendData('clockReport', {route: req.originalUrl, time: ms, user: req.user.username});
-
-		        var result = cached.apply(this, arguments);
-
-		        return result;
-		    };
-		})();
-	},
 	initialize: function (app, client, key, appName, instance, staticDir) {
 		if (app == undefined) {
 			throw "Application must be defined, not initializing."
@@ -107,11 +89,27 @@ module.exports = {
         });
 
 		return function(req, res, next) {
-			if (req.user == undefined) {
-				sendData('pathLoaded', {route: req.originalUrl});
-			} else {
-				sendData('pathLoaded', {route: req.originalUrl, user: req.user.username});
-			}
+			var start = process.hrtime();
+
+			res.end = (function() {
+			    var cached = res.end;
+
+			    return function() {
+			        var end = process.hrtime(start);
+			        var ms = (end[0]*1000) + (end[1]/1000000);
+
+			        var user = undefined;
+			        if (req.user) {
+			        	user = req.user.username;
+			        }
+
+			        sendData('clockReport', {route: req.originalUrl, time: ms, user: user});
+
+			        var result = cached.apply(this, arguments);
+
+			        return result;
+				    };
+			})();
 			
 			var isRoute = false;
 			for (var i = _routes.length - 1; i >= 0; i--) {

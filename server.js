@@ -105,38 +105,26 @@ io.on('connection', function(socket) {
 
 	 	socket.on('clockReport', function(data) {
 	 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
-	 	 		models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
-	 	 			instance = instance[0];
+	 	 		if (!err) {
+		 	 		models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
+		 	 			if (!err) {
+			 	 			instance = instance[0];
 
-		 	 		var route = new models.timedRoute({
-		 	 			user: data.user,
-		 	 			route: data.route,
-		 	 			time: data.time,
-		 	 			date: new Date()
+				 	 		var route = new models.timedRoute({
+				 	 			user: data.user,
+				 	 			route: data.route,
+				 	 			time: data.time,
+				 	 			date: new Date()
+				 	 		});
+				 	 		if(instance.timedRoutes == undefined) instance.timedRoutes = [];
+				 	 		instance.timedRoutes.push(route);
+				 	 		instance.saveAll().then(function() {
+				 	 			console.log('clockReport');
+				 	 		});
+		 	 			}
 		 	 		});
-		 	 		if(instance.timedRoutes == undefined) instance.timedRoutes = [];
-		 	 		instance.timedRoutes.push(route);
-		 	 		instance.saveAll();
-		 	 		console.log('clockReport');
-	 	 		});
+	 	 		}
 	 	 	});
-	 	});
-
-	 	socket.on('pathLoaded', function(data) {
-	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
-	 			models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
-	 				instance = instance[0];
-
-		 	 		var route = new models.loadedRoute({
-						user: data.user,
-						route: data.route
-		 	 		});
-
-		 	 		if(instance.loadedRoutes == undefined) instance.loadedRoutes = [];
-		 	 		instance.loadedRoutes.push(route);
-		 	 		instance.saveAll();
-		 	 	});
-		 	});
 	 	});
 
 	 	socket.on('bandwidthUsed', function(data) {
@@ -243,7 +231,6 @@ io.on('connection', function(socket) {
 	  			});
 
 	  			socket.on('getInstance', function(data) {
-	  				console.log(data);
 	  				models.instance.filter({name:data}).getJoin().then(function (instance) {
 	  					socket.emit('recieveInstance', instance);
 	  				});
@@ -258,7 +245,6 @@ io.on('connection', function(socket) {
 	  				models.application.changes().then(function(feed) {
 						feed.each(function(error, doc) {
 							models.user.filter({username: user.username}).limit(1).getJoin().then(function(u, err) {
-								console.log(u);
 								socket.emit("recieveUser", u[0]);
 							});
 						});
@@ -267,7 +253,6 @@ io.on('connection', function(socket) {
 	  				models.instance.changes().then(function(feed) {
 						feed.each(function(error, doc) {
 							models.user.filter({username: user.username}).limit(1).getJoin().then(function(u, err) {
-								console.log(u);
 								socket.emit("recieveUser", u[0]);
 							});
 						});
