@@ -40,13 +40,20 @@ var Log = Thinky.createModel("Log",{
 	level: Number,
 	message: String,
 	date: Date
-})
+});
+
+var Counter = Thinky.createModel("Counter", {
+	id: String,
+	name: String,
+	count: Number
+});
 
 User.hasMany(Application, "applications", "id", "userId");
 Application.hasMany(Instance, "instances", "id", "applicationId");
 Instance.hasMany(LoadedRoute, "loadedRoutes", "id", "instanceId");
 Instance.hasMany(TimedRoute, "timedRoutes", "id", "instanceId");
-Instance.hasMany(Log,"log","id","instanceId")
+Instance.hasMany(Log,"log","id","instanceId");
+Instance.hasMany(Counter,"counters","id","instanceId");
 
 module.exports = {
 	user: User,
@@ -55,4 +62,5 @@ module.exports = {
 	loadedRoute: LoadedRoute,
 	timedRoute: TimedRoute,
 	log: Log,
+	counter: Counter
 };

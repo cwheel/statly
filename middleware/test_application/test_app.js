@@ -43,10 +43,14 @@ app.get('/profile', function(req, res) {
 });
 
 app.get('/friends_list', function(req, res) {
+    statly.clockRequest(req, res);
+    statly.increaseCounter("freinds")
     res.send("profile");
 });
 
 app.get('/process_text', function(req, res) {
+    statly.clockRequest(req, res);
+    statly.decreaseCounter("freinds")
 
     setTimeout(function() {
         res.send("process_text");
@@ -59,7 +63,7 @@ app.get('/reply', function(req, res) {
     }, 1000*60*Math.random()*10)
 });
 
-app.use(statly.initialize(app, "test", "lGWqCdxXNm2jljPnQODoRP23rlbc7J", "Reddit2", "reddit_2", "/static"));
+app.use(statly.initialize(app, "test", "4f48dMxwpMGIFUpQcwYdUz8I6xw5Bi", "Facebook", "another_tet11", "/static"));
 
 app.use(express.static(__dirname + "/static"));
 app.listen(3001);
