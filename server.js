@@ -174,7 +174,7 @@ io.on('connection', function(socket) {
 	  			});
 
 	  			socket.on('getInstance', function(data) {
-	  				models.instance.filter({name:data}).getJoin()).then(function (instance) {
+	  				models.instance.filter({name:data}).getJoin().then(function (instance) {
 	  					socket.emit('recieveInstance', instance);
 	  				});
 	  				
