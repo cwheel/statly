@@ -40,12 +40,8 @@ http.listen(3000, function() {
 var clients = [];
 
 io.on('connection', function(socket) {
-
 	socket.on('initServer', function(data) {
-		console.log("INIT SERVER");
-
 		var client = data;
-
 
 		models.application.filter({name: data.appName}).getJoin().then(function(app, err) {
 			app = app[0];
@@ -78,13 +74,11 @@ io.on('connection', function(socket) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 			models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
 	 				instance[0].sys = data.sys;
-	 				instance[0].save().then(function (saved) {
-	 					instance.saveAll().then(function(saved) {
-	 						for (var i = clients.length - 1; i >= 0; i--) {
-	 							clients[i].emit('recieveInstance', saved);
-	 						};
-	 					});
-	 				});
+ 					instance[0].saveAll().then(function(saved) {
+ 						for (var i = clients.length - 1; i >= 0; i--) {
+ 							clients[i].emit('recieveInstance', saved);
+ 						};
+ 					});
 	 			});
  			});
 	 	});
@@ -178,7 +172,9 @@ io.on('connection', function(socket) {
 	 	});
 
 	 	socket.on('disconnect', function() {
-	  		socket.emit('appDisconnected', client);
+	  		for (var i = clients.length - 1; i >= 0; i--) {
+	  			clients[i].emit('appDisconnected', client);
+	  		};
 	  	});
 
 	 	socket.on('log', function(data) {

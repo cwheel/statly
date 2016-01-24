@@ -64,6 +64,7 @@ passport.authenticate('local');
 
 app.use(statly.initialize(app, "test", "vSQ5COljXqcfvM5fuDOq1eOxOuPcM1", "reddit", "test", "/static"));
 
+
 app.use(express.static(__dirname + "/static"));
 app.listen(3001);
 exports = module.exports = app;
