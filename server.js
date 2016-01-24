@@ -85,7 +85,8 @@ io.on('connection', function(socket) {
 	 	 			if(instance.counters == undefined) instance.counters = {};
 	 	 			if (instance.counters[data.counter] == undefined) instance.counters[data.counter] = 1;
 	 	 			else instance.counters[data.counter] += 1;
-	 	 			instance.saveAll();
+	 	 			console.log(instance.counters[data.counter])
+	 	 			instance.save();
 	 	 		});
 	 	 	});
 	 	});
@@ -98,7 +99,7 @@ io.on('connection', function(socket) {
 	 	 			if(instance.counters == undefined) instance.counters = {};
 	 	 			if (instance.counters[data.counter] == undefined) instance.counters[data.counter] = 0;
 	 	 			else instance.counters[data.counter] -= 1;
-	 	 			instance.saveAll();
+	 	 			instance.save();
 	 	 		});
 	 	 	});
 	 	});

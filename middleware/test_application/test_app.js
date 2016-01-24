@@ -45,6 +45,7 @@ app.get('/profile', function(req, res) {
 
 app.get('/friends_list', function(req, res) {
     statly.clockRequest(req, res);
+    statly.increaseCounte r("Friend")
     res.send("profile");
 });
 
@@ -64,7 +65,7 @@ app.get('/reply', function(req, res) {
     }, 1000*60*Math.random()*10)
 });
 
-app.use(statly.initialize(app, "test", "MuJX3RAEctgni7458ImI5Y6dGhMmW1", "Facebook", "another_test11", "/static"));
+app.use(statly.initialize(app, "test", "KMjNezK5cKmmf7cXtVfJX7ORc5wTyD", "Facebook", "another_test11", "/static"));
 
 app.use(express.static(__dirname + "/static"));
 app.listen(3001);
