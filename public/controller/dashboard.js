@@ -69,6 +69,7 @@ function dashboardController($scope, $state, $http, $rootScope) {
 			$rootScope.socket.on('recieveInstance', function(data) {
 				$rootScope.instanceData = data[0];
 				$rootScope.$broadcast('dataAvalible');
+				console.log(data);
 			});
 			
 			$scope.$apply();
