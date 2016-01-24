@@ -100,7 +100,10 @@ module.exports = {
 
 		socket.on('connect', function () {
 			sendData('initServer', {});
-        	//sendLoadAvg();
+        	
+        	socket.on('initComplete', function() {
+        		sendLoadAvg();
+        	});
         });
 
 		return function(req, res, next) {
