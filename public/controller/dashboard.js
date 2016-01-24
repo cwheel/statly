@@ -51,6 +51,9 @@ function dashboardController($scope, $state, $http, $rootScope) {
 	$scope.itemSelected = function(app, instance) {
 		$scope.application = app;
 		$scope.instance = instance;
+
+		$rootScope.instance = instance;
+		$rootScope.application = application;
 	};
 
 	$scope.paneChanged = function() {

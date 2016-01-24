@@ -1,11 +1,13 @@
 mainController.$inject = ['$scope', '$state', '$http', '$rootScope'];
 loginController.$inject = ['$scope', '$state', '$http', '$rootScope'];
 dashboardController.$inject = ['$scope','$state', '$http', '$rootScope'];
+overviewController.$inject = ['$scope','$state', '$http', '$rootScope'];
 
 var statly = angular.module('statly', ['ngAnimate','ui.router'])
 	.controller('mainController',mainController)
 	.controller('loginController',loginController)
 	.controller('dashboardController',dashboardController)
+	.controller('overviewController',overviewController)
 	.config(['$stateProvider','$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
 		$urlRouterProvider.otherwise("/");
 		$stateProvider
@@ -22,6 +24,7 @@ var statly = angular.module('statly', ['ngAnimate','ui.router'])
 			.state('dashboard.overview',{
 				url: '/overview',
 				templateUrl: 'views/dashboard/overview.html',
+				controller: 'overviewController'
 			})	
 	}]);
 
