@@ -3,7 +3,7 @@ loginController.$inject = ['$scope', '$state', '$http', '$rootScope'];
 dashboardController.$inject = ['$scope','$state', '$http', '$rootScope'];
 overviewController.$inject = ['$scope','$state', '$http', '$rootScope'];
 
-var statly = angular.module('statly', ['ngAnimate','ui.router'])
+var statly = angular.module('statly', ['ngAnimate','ui.router', 'chart.js'])
 	.controller('mainController',mainController)
 	.controller('loginController',loginController)
 	.controller('dashboardController',dashboardController)

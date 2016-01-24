@@ -36,8 +36,9 @@ function dashboardController($scope, $state, $http, $rootScope) {
 						$rootScope.socket.emit('registerObserverForInstance', $scope.instance);
 
 						$rootScope.socket.on('recieveInstance', function(data) {
-							$rootScope.instanceData = data;
+							$rootScope.instanceData = data[0];
 							console.log(data);
+							$rootScope.$broadcast('dataAvalible');
 						});
 
 						$scope.$apply();
@@ -66,8 +67,8 @@ function dashboardController($scope, $state, $http, $rootScope) {
 			$rootScope.socket.emit('registerObserverForInstance', $scope.instance);
 
 			$rootScope.socket.on('recieveInstance', function(data) {
-				$rootScope.instanceData = data;
-				console.log(data);
+				$rootScope.instanceData = data[0];
+				$rootScope.$broadcast('dataAvalible');
 			});
 			
 			$scope.$apply();

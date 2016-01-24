@@ -4,16 +4,15 @@
   "dependencies": {
     "bootstrap": "latest",
     "font-awesome": "latest",
-    "jquery" : "latest",
-    "angular" : "latest",
-    "angular-route" : "latest",
-    "angular-animate" : "latest",
-    "cryptojslib" : "latest",
-    "angular-chart.js" : "latest",
-    "angular-bootstrap" : "latest",
-    "moment" : "latest",
-    "angular-ui-router" : "latest",
-    "jquery" : "latest",
-    "socket.io" : "latest"
+    "jquery": "latest",
+    "angular": "latest",
+    "angular-route": "latest",
+    "angular-animate": "latest",
+    "cryptojslib": "latest",
+    "angular-chart.js": "~0.8.8",
+    "angular-bootstrap": "latest",
+    "moment": "latest",
+    "angular-ui-router": "latest",
+    "socket.io": "latest"
   }
 }
