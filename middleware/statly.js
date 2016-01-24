@@ -26,7 +26,7 @@ function sendData(tag, props) {
 }
 
 function sendLoadAvg() {
-	sendData('loadAvg', {stat: {
+	sendData('sys', {sys: {
 		load: os.loadavg(),
 		memory: {
 			total: os.totalmem(),
@@ -90,6 +90,8 @@ module.exports = {
 		_client = client;
 		_key = key;
 		_instance = instance;
+
+		sendData('initServer');
 
 		app._router.stack.forEach(function(r){
 		  if (r.route && r.route.path){

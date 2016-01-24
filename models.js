@@ -16,7 +16,7 @@ var Application = Thinky.createModel("Application", {
 var Instance = Thinky.createModel("Instance", {
 	id: String,
 	name: String,
-	loadAvg: Array,
+	sys: Object,
 	bandwith: Number,
 	counters: Object
 });

@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.socketKeys = {};
-new models.user({name: "Test User", username: "test", password: BCrypt.hashSync("test", BCrypt.genSaltSync(10))}).save();
+//new models.user({name: "Test User", username: "test", password: BCrypt.hashSync("test", BCrypt.genSaltSync(10))}).save();
 
 app.use(cookies());
 app.use(session({ 
@@ -39,6 +39,34 @@ http.listen(3000, function() {
 
 io.on('connection', function(socket) {
 	socket.on('initServer', function(socket) {
+		models.application.filter({name: data.appName}).getJoin().then(function(app, err) {
+			var found = false;
+			for (var i = app.instances.length - 1; i >= 0; i--) {
+				if (app.instances[i].name == data.instance) {
+					found = true;
+					break;
+				}
+			}
+
+			if (!found) {
+				if (app.instances == undefined) {
+					app.instances = [];
+				}
+
+				app.instances.push(new models.instance({name: data.instance, sys: {}, bandwith: 0, counters: {}}));
+				app.saveAll();
+			}
+	 	});
+
+	 	socket.on('sys', function(data) {
+	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
+	 			models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+	 				instance.sys = data.sys;
+	 				instance.saveAll();
+	 			});
+	 		});
+	 	});
+
 	 	socket.on('loadAvg', function(socket, data) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 			models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
