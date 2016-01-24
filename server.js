@@ -39,6 +39,8 @@ http.listen(3000, function() {
 
 io.on('connection', function(socket) {
 	socket.on('initServer', function(data) {
+		var client = data;
+
 		models.application.filter({name: data.appName}).getJoin().then(function(app, err) {
 			app = app[0];
 
@@ -141,6 +143,11 @@ io.on('connection', function(socket) {
 	 	 		});
 	 	 	});
 	 	});
+
+	 	socket.on('disconnect', function() {
+	  		socket.emit('appDisconnected', client);
+	  	});
+
 	 	socket.on('log', function(data) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {

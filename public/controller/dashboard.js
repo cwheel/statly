@@ -22,6 +22,7 @@ function dashboardController($scope, $state, $http, $rootScope) {
 				$rootScope.socket.on('initComplete', function () {
 					$rootScope.socket.emit('getUser');
 					$rootScope.socket.emit('registerObserverForUser');
+
 					$rootScope.socket.on('recieveUser', function(user) {
 						$scope.user = user;
 						console.log($scope.user);
@@ -31,14 +32,18 @@ function dashboardController($scope, $state, $http, $rootScope) {
 
 						$scope.$apply();
 					});
-				});	
+
+					$rootScope.socket.on('appDisconnected', function(data) {
+						console.log(data);
+					});
+				});
 			}
 		});
 	} else {
 		$rootScope.socket.emit('getUser');
 		$rootScope.socket.emit('registerObserverForUser');
-		$rootScope.socket.on('recieveUser', function(user) {
 
+		$rootScope.socket.on('recieveUser', function(user) {
 			$scope.user = user;
 			console.log($scope.user);
 
@@ -46,6 +51,10 @@ function dashboardController($scope, $state, $http, $rootScope) {
 			$scope.instance = $scope.user.applications[0].instances[0].name;
 			
 			$scope.$apply();
+		});
+
+		$rootScope.socket.on('appDisconnected', function(data) {
+			console.log(data);
 		});
 	}
 
