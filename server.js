@@ -80,18 +80,15 @@ io.on('connection', function(socket) {
 	 	socket.on('increaseCounter', function(data) {
 	 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 	 		models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
-<<<<<<< HEAD
 					models.counter.filter({name:data.counter,instanceId:instance[0].id}).update({
 						count: r.row("count").add(1).default(1)
 					});
-=======
 	 	 			instance = instance[0];
 
 	 	 			if(instance.counters == undefined) instance.counters = {};
 	 	 			if (instance.counters[data.counter] == undefined) instance.counters[data.counter] = 1;
 	 	 			else instance.counters[data.counter] += 1;
 	 	 			console.log(instance.counters[data.counter])
->>>>>>> test
 	 	 			instance.save();
 	 	 		});
 	 	 	});
@@ -100,17 +97,11 @@ io.on('connection', function(socket) {
 	  	socket.on('decreseCounter', function(data) {
 	 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 	 		models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
-<<<<<<< HEAD
-					models.counter.filter({name:data.counter,instanceId:instance[0].id}).update({
-						count: r.row("count").sub(1).default(0)
-					});
-=======
 	 	 			instance = instance[0];
 
 	 	 			if(instance.counters == undefined) instance.counters = {};
 	 	 			if (instance.counters[data.counter] == undefined) instance.counters[data.counter] = 0;
 	 	 			else instance.counters[data.counter] -= 1;
->>>>>>> test
 	 	 			instance.save();
 	 	 		});
 	 	 	});

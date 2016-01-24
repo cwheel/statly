@@ -36,7 +36,7 @@
 			<div id="instance-title">{{instance}}</div>
 		</div>
 
-		<select id="pane-chooser" ng-click="paneChanged()" ng-model="pane">
+		<select id="pane-chooser" ng-change="paneChanged()" ng-model="pane">
 			<option value="overview">Overview</option>
 			<option value="users">Users</option>
 			<option value="execution">Execution Time</option>

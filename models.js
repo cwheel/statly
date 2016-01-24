@@ -53,7 +53,6 @@ Application.hasMany(Instance, "instances", "id", "applicationId");
 Instance.hasMany(LoadedRoute, "loadedRoutes", "id", "instanceId");
 Instance.hasMany(TimedRoute, "timedRoutes", "id", "instanceId");
 Instance.hasMany(Log,"log","id","instanceId");
-Instance.hasMany(Counter,"counters","id","instanceId");
 
 module.exports = {
 	user: User,
