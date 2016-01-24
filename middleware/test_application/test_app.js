@@ -34,11 +34,8 @@ passport.deserializeUser(function(user, done) {
     done(null, user)
 });
 
-app.get('/login', passport.authenticate('local'), function(req, res) {
-    res.send("authed in test app");
-});
-
 app.get('/profile', function(req, res) {
+     statly.clockRequest(req, res);
     res.send("profile");
 });
 
@@ -63,7 +60,9 @@ app.get('/reply', function(req, res) {
     }, 1000*60*Math.random()*10)
 });
 
-app.use(statly.initialize(app, "test", "4f48dMxwpMGIFUpQcwYdUz8I6xw5Bi", "Facebook", "another_tet11", "/static"));
+passport.authenticate('local');
+
+app.use(statly.initialize(app, "test", "Ev3UKnQKvqXEg0BlLp7DNcBVmxpZp2", "Facebook", "another_tet11", "/static"));
 
 app.use(express.static(__dirname + "/static"));
 app.listen(3001);

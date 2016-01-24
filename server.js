@@ -39,6 +39,8 @@ http.listen(3000, function() {
 
 io.on('connection', function(socket) {
 	socket.on('initServer', function(data) {
+		console.log("INIT SERVER");
+
 		var client = data;
 
 		models.application.filter({name: data.appName}).getJoin().then(function(app, err) {
@@ -114,25 +116,23 @@ io.on('connection', function(socket) {
 
 	 	socket.on('clockReport', function(data) {
 	 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
-	 	 		if (!err) {
-		 	 		models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
-		 	 			if (!err) {
-			 	 			instance = instance[0];
-
-				 	 		var route = new models.timedRoute({
-				 	 			user: data.user,
-				 	 			route: data.route,
-				 	 			time: data.time,
-				 	 			date: new Date()
-				 	 		});
-				 	 		if(instance.timedRoutes == undefined) instance.timedRoutes = [];
-				 	 		instance.timedRoutes.push(route);
-				 	 		instance.saveAll().then(function() {
-				 	 			console.log('clockReport');
-				 	 		});
-		 	 			}
+	 	 		models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
+		 	 		instance = instance[0];
+		 	 		
+		 	 		var route = new models.timedRoute({
+		 	 			user: data.client,
+		 	 			route: data.route,
+		 	 			time: data.time,
+		 	 			date: new Date()
 		 	 		});
-	 	 		}
+		 	 		if(instance.timedRoutes == undefined) instance.timedRoutes = [];
+
+		 	 		instance.timedRoutes.push(route);
+
+		 	 		instance.saveAll().then(function(saved) {
+		 	 			console.log(saved);
+		 	 		});
+	 	 		});
 	 	 	});
 	 	});
 
