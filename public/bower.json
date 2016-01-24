@@ -13,6 +13,7 @@
     "angular-bootstrap": "latest",
     "moment": "latest",
     "angular-ui-router": "latest",
-    "socket.io": "latest"
+    "socket.io": "latest",
+    "angular-ui-router-anim-in-out": "~1.0.2"
   }
 }

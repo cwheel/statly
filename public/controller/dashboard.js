@@ -89,13 +89,14 @@ function dashboardController($scope, $state, $http, $rootScope) {
 		$scope.instance = instance;
 
 		$rootScope.instance = instance;
-		$rootScope.application = application;
+		$rootScope.application = app;
 
+		$rootScope.socket.emit('getInstance', $scope.instance);
 		$rootScope.socket.emit('registerObserverForInstance', $scope.instance);
 	};
 
 	$scope.paneChanged = function() {
-		console.log($scope.pane);
+		$state.go('dashboard.' + $scope.pane);
 	};
 
 	$scope.addNewApp = function() {
