@@ -133,6 +133,7 @@ io.on('connection', function(socket) {
 		 	 		});
 		 	 		if(instance.loadedRoute == undefined) instance.loadedRoute = [];
 		 	 		instance.loadedRoute.push(route);
+		 	 		instance.saveAll();
 		 	 		console.log('clockReport');
 		 	 	});
 		 	});
