@@ -145,20 +145,36 @@ io.on('connection', function(socket) {
 	  		if (authed) {
 	  			var InstanceTracked = false;
 	  			var InstanceID = "";
+	  			var firstTime = true;
 	  			socket.on('registerObserverForInstance', function(data){
 	  				if (InstanceTracked){
-	  					models.instance.filter({name:data}).then(function (instance){
-
+	  					models.instance.filter({name:data}).then(function (instance) {
+	  						InstanceID = instance.id;
 	  					});
+	  				} else {
+	  					InstanceTracked = true;
+	  					models.instance.filter({name:data}).then(function (instance) {
+	  						InstanceID = instance.id;
+	  						if (firstTime) {
+	  							firstTime = false
+		  						models.instances.changes().then(function(feed){
+			  						feed.each(function (error, doc){
+			  							if(doc.id == InstanceID && InstanceTracked){
+			  								socket.emit('recieveObserverForInstance',doc);
+			  							}
+			  						})
+			  					})
+	  						}
+	  					});	
 	  				}
 	  			});
 
 	  			socket.on('removeObserverForInstance', function(data){
-
+	  				InstanceTracked = false;
 	  			});
 
 	  			socket.on('getInstance', function(data) {
-	  				models.instance.filter({name:data}).getJoin()).then(function(instance) {
+	  				models.instance.filter({name:data}).getJoin()).then(function (instance) {
 	  					socket.emit('recieveInstance', instance);
 	  				});
 	  				
