@@ -37,11 +37,15 @@ http.listen(3000, function() {
  	console.log('listening on *:3000');
 });
 
+var clients = [];
+
 io.on('connection', function(socket) {
+
 	socket.on('initServer', function(data) {
 		console.log("INIT SERVER");
 
 		var client = data;
+
 
 		models.application.filter({name: data.appName}).getJoin().then(function(app, err) {
 			app = app[0];
@@ -74,7 +78,13 @@ io.on('connection', function(socket) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 			models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
 	 				instance[0].sys = data.sys;
-	 				instance[0].save();
+	 				instance[0].save().then(function (saved) {
+	 					instance.saveAll().then(function(saved) {
+	 						for (var i = clients.length - 1; i >= 0; i--) {
+	 							clients[i].emit('recieveInstance', saved);
+	 						};
+	 					});
+	 				});
 	 			});
  			});
 	 	});
@@ -90,8 +100,14 @@ io.on('connection', function(socket) {
 	 	 			if(instance.counters == undefined) instance.counters = {};
 	 	 			if (instance.counters[data.counter] == undefined) instance.counters[data.counter] = 1;
 	 	 			else instance.counters[data.counter] += 1;
-	 	 			console.log(instance.counters[data.counter])
-	 	 			instance.save();
+	 	 			
+	 	 			instance.save().then(function(saved) {
+	 	 				instance.saveAll().then(function(saved) {
+	 	 					for (var i = clients.length - 1; i >= 0; i--) {
+	 	 						clients[i].emit('recieveInstance', saved);
+	 	 					};
+	 	 				});
+	 	 			});
 	 	 		});
 	 	 	});
 	 	});
@@ -99,23 +115,23 @@ io.on('connection', function(socket) {
 	  	socket.on('decreseCounter', function(data) {
 	 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
 	 	 		models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
-<<<<<<< HEAD
-=======
 					models.counter.filter({name:data.counter,instanceId:instance[0].id}).update({
 						count: r.row("count").sub(1).default(0)
 					});
 
->>>>>>> 9ba8ac6e8b4b6b20d7f910968c5b7676c8e12400
 	 	 			instance = instance[0];
 
 	 	 			if(instance.counters == undefined) instance.counters = {};
 	 	 			if (instance.counters[data.counter] == undefined) instance.counters[data.counter] = 0;
 	 	 			else instance.counters[data.counter] -= 1;
-<<<<<<< HEAD
-=======
 
->>>>>>> 9ba8ac6e8b4b6b20d7f910968c5b7676c8e12400
-	 	 			instance.save();
+	 	 			instance.save().then(function(saved) {
+	 	 				instance.saveAll().then(function(saved) {
+	 	 					for (var i = clients.length - 1; i >= 0; i--) {
+	 	 						clients[i].emit('recieveInstance', saved);
+	 	 					};
+	 	 				});
+	 	 			});
 	 	 		});
 	 	 	});
 	 	});
@@ -131,12 +147,16 @@ io.on('connection', function(socket) {
 		 	 			time: data.time,
 		 	 			date: new Date()
 		 	 		});
+
+		 	 	
 		 	 		if(instance.timedRoutes == undefined) instance.timedRoutes = [];
 
 		 	 		instance.timedRoutes.push(route);
-
+		 	 		
 		 	 		instance.saveAll().then(function(saved) {
-		 	 			console.log(saved);
+		 	 			for (var i = clients.length - 1; i >= 0; i--) {
+		 	 				clients[i].emit('recieveInstance', saved);
+		 	 			};
 		 	 		});
 	 	 		});
 	 	 	});
@@ -149,7 +169,13 @@ io.on('connection', function(socket) {
 
 	 	 			if(instance.bandwith == undefined) instance.bandwith = 0;
 	 	 			instance.bandwith += data.bytes;
-	 	 			instance.saveAll();
+	 	 			instance.saveAll().then(function (saved) {
+	 	 				instance.saveAll().then(function(saved) {
+	 	 					for (var i = clients.length - 1; i >= 0; i--) {
+	 	 						clients[i].emit('recieveInstance', saved);
+	 	 					};
+	 	 				});
+	 	 			});
 	 	 		});
 	 	 	});
 	 	});
@@ -170,13 +196,22 @@ io.on('connection', function(socket) {
 	 	 			})
 	 	 			if(instance.log == undefined) instance.log = [];
 	 	 			instance.log.push(log);
-	 	 			instance.saveAll();
+	 	 			instance.saveAll().then(function(saved) {
+	 	 				instance.saveAll().then(function(saved) {
+	 	 					for (var i = clients.length - 1; i >= 0; i--) {
+	 	 						clients[i].emit('recieveInstance', saved);
+	 	 					};
+	 	 				});
+	 	 			});
 	 	 		});
 	 	 	});
 	 	});
 	});
 
 	socket.on('initClient', function(data) {
+		clients.push(socket);
+
+
 	  	models.user.filter({username: data.username}).limit(1).getJoin({applications: {instances: true}}).then(function(user, err) {
 	  		user = user[0];
 
@@ -195,7 +230,7 @@ io.on('connection', function(socket) {
 	  			var InstanceTracked = false;
 	  			var InstanceID = "";
 	  			var firstTime = true;
-	  			socket.on('registerObserverForInstance', function(data){
+	  			/*socket.on('registerObserverForInstance', function(data){
 	  				if (InstanceTracked){
 	  					models.instance.filter({name:data}).then(function (instance) {
 	  						InstanceID = instance.id;
@@ -208,38 +243,46 @@ io.on('connection', function(socket) {
 	  							firstTime = false;
 		  						models.instance.changes().then(function(feed) {
 			  						feed.each(function (error, doc){
+			  							console.log("shoudl update");
 			  							if(doc.id == InstanceID && InstanceTracked){
 			  								models.instance.get(InstanceID).getJoin().then(function (instance){
-			  									socket.emit('recieveObserverForInstance',doc);
+			  									console.log("did update");
+			  									socket.emit('recieveInstance',doc);
 			  								});
 			  							}
 			  						})
 			  					})
 			  					models.timedRoute.changes().then(function(feed){
 			  						feed.each(function(error,doc){
+			  							console.log("shoudl update");
 			  							models.instance.get(InstanceID).getJoin().then(function (instance){
-			  								socket.emit('recieveObserverForInstance',doc);
+			  								console.log("did update");
+			  								socket.emit('recieveInstance',doc);
 			  							});
 			  						});
 			  					})
 			  					models.loadedRoute.changes().then(function(feed){
 			  						feed.each(function(error,doc){
+			  							console.log("shoudl update");
 			  							models.instance.get(InstanceID).getJoin().then(function (instance){
-			  								socket.emit('recieveObserverForInstance',doc);
+			  								console.log("did update");
+			  								socket.emit('recieveInstance',doc);
 			  							});
 			  						});
 			  					})
 			  					models.log.changes().then(function(feed){
 			  						feed.each(function(error,doc){
+			  							console.log("shoudl update");
 			  							models.instance.get(InstanceID).getJoin().then(function (instance){
-			  								socket.emit('recieveObserverForInstance',doc);
+			  								console.log("did update");
+			  								socket.emit('recieveInstance',doc);
 			  							});
 			  						});
 			  					})
 	  						}
 	  					});	
 	  				}
-	  			});
+	  			});*/
 
 	  			socket.on('removeObserverForInstance', function(data){
 	  				InstanceTracked = false;
@@ -279,5 +322,3 @@ io.on('connection', function(socket) {
 	    });
 	});
 });
-
-
