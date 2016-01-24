@@ -35,8 +35,11 @@ function dashboardController($scope, $state, $http, $rootScope) {
 						$rootScope.socket.emit('getInstance', $scope.instance);
 
 						$rootScope.socket.on('recieveInstance', function(data) {
-							console.log(data);
-							$rootScope.instanceData = data[0];
+							if (data instanceof Array) {
+								$rootScope.instanceData = data[0];
+							} else {
+								$rootScope.instanceData = data;
+							}
 							
 							$rootScope.$broadcast('dataAvalible');
 						});
@@ -66,8 +69,12 @@ function dashboardController($scope, $state, $http, $rootScope) {
 			$rootScope.socket.emit('getInstance', $scope.instance);
 
 			$rootScope.socket.on('recieveInstance', function(data) {
-				console.log(data);
-				$rootScope.instanceData = data[0];
+				if (data instanceof Array) {
+					$rootScope.instanceData = data[0];
+				} else {
+					$rootScope.instanceData = data;
+				}
+
 				$rootScope.$broadcast('dataAvalible');
 			});
 			

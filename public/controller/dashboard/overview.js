@@ -4,6 +4,7 @@ function overviewController($scope, $state, $http, $rootScope) {
 	$scope.data = [[0,0,0]];
 
 	$scope.$on('dataAvalible', function() {
+		console.log($rootScope.instanceData);
 		$scope.data = [$rootScope.instanceData.sys.load];
 		$scope.uptime =  Math.round(($rootScope.instanceData.sys.uptime/60/60/24) * 100) / 100;
 		$scope.systype = $rootScope.instanceData.sys.type;
