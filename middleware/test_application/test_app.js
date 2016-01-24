@@ -64,7 +64,7 @@ app.get('/reply', function(req, res) {
     }, 1000*60*Math.random()*10)
 });
 
-app.use(statly.initialize(app, "client", "key", "test_application", "test_instance", "/static"));
+app.use(statly.initialize(app, "test", "WZdJvFLGaIPxnx4vYNFqZoGSAjvoLy", "Local Test", "test_instance", "/static"));
 
 
 app.use(express.static(__dirname + "/static"));

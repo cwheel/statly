@@ -26,17 +26,17 @@ function sendData(tag, props) {
 }
 
 function sendLoadAvg() {
-	sendData('loadAvg', {
+	sendData('loadAvg', {stat: {
 		load: os.loadavg(),
 		memory: {
 			total: os.totalmem(),
-			free: os.freemem(),
-		}
+			free: os.freemem()
+		},
 		uptime: os.uptime(),
 		type: os.type(),
-		version: os.release()
+		version: os.release(),
 		date: new Date()
-	});
+	}});
 
 	setTimeout(sendLoadAvg, 1000*60*5);
 }

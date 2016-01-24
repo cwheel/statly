@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.socketKeys = {};
-//new models.user({name: "Test User", username: "test", password: BCrypt.hashSync("test", BCrypt.genSaltSync(10))}).save();
+new models.user({name: "Test User", username: "test", password: BCrypt.hashSync("test", BCrypt.genSaltSync(10))}).save();
 
 app.use(cookies());
 app.use(session({ 
@@ -220,17 +220,17 @@ io.on('connection', function(socket) {
 	  			socket.on('registerObserverForUser', function(data) {
 	  				models.application.changes().then(function(feed) {
 						feed.each(function(error, doc) {
-							models.user.filter({username: data.username}).limit(1).getJoin({applications: {instances: true}}).then(function(user, err) {
-								socket.emit("recieveUser",user);
-							}
+							models.user.filter({username: user.username}).limit(1).getJoin({applications: {instances: true}}).then(function(u, err) {
+								socket.emit("recieveUser", u);
+							});
 						});
 	  				});
 
 	  				models.instance.changes().then(function(feed) {
 						feed.each(function(error, doc) {
-							models.user.filter({username: data.username}).limit(1).getJoin({applications: {instances: true}}).then(function(user, err) {
-								socket.emit("recieveUser",user);
-							}
+							models.user.filter({username: user.username}).limit(1).getJoin({applications: {instances: true}}).then(function(u, err) {
+								socket.emit("recieveUser", u);
+							});
 						});
 	  				});
 	  			});
