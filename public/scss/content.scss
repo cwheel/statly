@@ -158,3 +158,8 @@
 	color: $sidebar-color;
 	flex: 1;
 }
+
+.badge {
+	margin-right: 20px;
+	background: lighten($sidebar-color, 20);
+}

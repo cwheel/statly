@@ -1,7 +1,7 @@
 <div class="page-container">
-	<div class="list-view">
+	<div class="list-view" style="height: 400px;">
 		<ul>
-			<li ng-repeat="(key,Count) in counter">{{key}} <i class="fa fa-long-arrow-right"></i>{{Count}}</li>
+			<li ng-repeat="(key,Count) in counter"><div class="badge">{{Count}}</div>{{key}}</li>
 		</ul>
 	</div>
 </div>
