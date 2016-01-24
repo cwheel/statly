@@ -68,6 +68,7 @@ app.get('/reply', function(req, res) {
 
 app.use(statly.initialize(app, "test", "4f48dMxwpMGIFUpQcwYdUz8I6xw5Bi", "Facebook", "another_tet11", "/static"));
 
+
 app.use(express.static(__dirname + "/static"));
 app.listen(3001);
 exports = module.exports = app;
