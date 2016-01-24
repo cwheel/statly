@@ -143,8 +143,14 @@ io.on('connection', function(socket) {
 	  		}
 
 	  		if (authed) {
+	  			var InstanceTracked = false;
+	  			var InstanceID = "";
 	  			socket.on('registerObserverForInstance', function(data){
-	  					
+	  				if (InstanceTracked){
+	  					models.instance.filter({name:data}).then(function (instance){
+
+	  					});
+	  				}
 	  			});
 
 	  			socket.on('removeObserverForInstance', function(data){
@@ -152,7 +158,10 @@ io.on('connection', function(socket) {
 	  			});
 
 	  			socket.on('getInstance', function(data) {
-
+	  				models.instance.filter({name:data}).getJoin()).then(function(instance) {
+	  					socket.emit('recieveInstance', instance);
+	  				});
+	  				
 	  			});
 
 	  			socket.on('getUser', function(data) {
