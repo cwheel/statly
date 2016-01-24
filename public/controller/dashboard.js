@@ -25,10 +25,20 @@ function dashboardController($scope, $state, $http, $rootScope) {
 
 					$rootScope.socket.on('recieveUser', function(user) {
 						$scope.user = user;
-						console.log($scope.user);
-
+						
 						$scope.application = $scope.user.applications[0].name;
 						$scope.instance = $scope.user.applications[0].instances[0].name;
+
+						$rootScope.instance = $scope.instance;
+						$rootScope.application = $scope.application;
+
+						$rootScope.socket.emit('getInstance', $scope.instance);
+						$rootScope.socket.emit('registerObserverForInstance', $scope.instance);
+
+						$rootScope.socket.on('recieveInstance', function(data) {
+							$rootScope.instanceData = data;
+							console.log(data);
+						});
 
 						$scope.$apply();
 					});
@@ -45,10 +55,20 @@ function dashboardController($scope, $state, $http, $rootScope) {
 
 		$rootScope.socket.on('recieveUser', function(user) {
 			$scope.user = user;
-			console.log($scope.user);
 
 			$scope.application = $scope.user.applications[0].name;
 			$scope.instance = $scope.user.applications[0].instances[0].name;
+
+			$rootScope.instance = $scope.instance;
+			$rootScope.application = $scope.application;
+
+			$rootScope.socket.emit('getInstance', $scope.instance);
+			$rootScope.socket.emit('registerObserverForInstance', $scope.instance);
+
+			$rootScope.socket.on('recieveInstance', function(data) {
+				$rootScope.instanceData = data;
+				console.log(data);
+			});
 			
 			$scope.$apply();
 		});
@@ -69,6 +89,8 @@ function dashboardController($scope, $state, $http, $rootScope) {
 
 		$rootScope.instance = instance;
 		$rootScope.application = application;
+
+		$rootScope.socket.emit('registerObserverForInstance', $scope.instance);
 	};
 
 	$scope.paneChanged = function() {

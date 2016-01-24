@@ -105,15 +105,17 @@ io.on('connection', function(socket) {
 
 	 	socket.on('clockReport', function(data) {
 	 	 	models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
-	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+	 	 		models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
+	 	 			instance = instance[0];
+
 		 	 		var route = new models.timedRoute({
 		 	 			user: data.user,
 		 	 			route: data.route,
 		 	 			time: data.time,
 		 	 			date: new Date()
 		 	 		});
-		 	 		if(instance.timedRoute == undefined) instance.timedRoute = [];
-		 	 		instance.timedRoute.push(route);
+		 	 		if(instance.timedRoutes == undefined) instance.timedRoutes = [];
+		 	 		instance.timedRoutes.push(route);
 		 	 		instance.saveAll();
 		 	 		console.log('clockReport');
 	 	 		});
@@ -122,7 +124,9 @@ io.on('connection', function(socket) {
 
 	 	socket.on('pathLoaded', function(data) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
-	 			models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+	 			models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
+	 				instance = instance[0];
+
 		 	 		var route = new models.loadedRoute({
 						user: data.user,
 						route: data.route
@@ -136,7 +140,9 @@ io.on('connection', function(socket) {
 
 	 	socket.on('bandwidthUsed', function(data) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
-	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+	 	 		models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
+	 	 			instance = instance[0];
+
 	 	 			if(instance.bandwith == undefined) instance.bandwith = 0;
 	 	 			instance.bandwith += data.bytes;
 	 	 			instance.saveAll();
@@ -150,7 +156,9 @@ io.on('connection', function(socket) {
 
 	 	socket.on('log', function(data) {
 	 		models.application.filter({name: data.appName, key: data.key}).getJoin().then(function(app, err) {
-	 	 		models.instance.filter({name: data.instance, applicationId: app.id}).getJoin().then(function(instance, err) {
+	 	 		models.instance.filter({name: data.instance, applicationId: app[0].id}).getJoin().then(function(instance, err) {
+	 	 			instance = instance[0];
+
 	 	 			var log = new modules.logs({
 	 	 				level: data.level,
 						message: data.message,
@@ -193,8 +201,8 @@ io.on('connection', function(socket) {
 	  					models.instance.filter({name:data}).then(function (instance) {
 	  						InstanceID = instance.id;
 	  						if (firstTime) {
-	  							firstTime = false
-		  						models.instances.changes().then(function(feed){
+	  							firstTime = false;
+		  						models.instance.changes().then(function(feed) {
 			  						feed.each(function (error, doc){
 			  							if(doc.id == InstanceID && InstanceTracked){
 			  								models.instance.get(InstanceID).getJoin().then(function (instance){
@@ -203,21 +211,21 @@ io.on('connection', function(socket) {
 			  							}
 			  						})
 			  					})
-			  					modules.timedRoute.changes().then(function(feed){
+			  					models.timedRoute.changes().then(function(feed){
 			  						feed.each(function(error,doc){
 			  							models.instance.get(InstanceID).getJoin().then(function (instance){
 			  								socket.emit('recieveObserverForInstance',doc);
 			  							});
 			  						});
 			  					})
-			  					modules.loadedRoute.changes().then(function(feed){
+			  					models.loadedRoute.changes().then(function(feed){
 			  						feed.each(function(error,doc){
 			  							models.instance.get(InstanceID).getJoin().then(function (instance){
 			  								socket.emit('recieveObserverForInstance',doc);
 			  							});
 			  						});
 			  					})
-			  					modules.log.changes().then(function(feed){
+			  					models.log.changes().then(function(feed){
 			  						feed.each(function(error,doc){
 			  							models.instance.get(InstanceID).getJoin().then(function (instance){
 			  								socket.emit('recieveObserverForInstance',doc);
@@ -234,6 +242,7 @@ io.on('connection', function(socket) {
 	  			});
 
 	  			socket.on('getInstance', function(data) {
+	  				console.log(data);
 	  				models.instance.filter({name:data}).getJoin().then(function (instance) {
 	  					socket.emit('recieveInstance', instance);
 	  				});
