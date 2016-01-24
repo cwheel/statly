@@ -160,9 +160,32 @@ io.on('connection', function(socket) {
 		  						models.instances.changes().then(function(feed){
 			  						feed.each(function (error, doc){
 			  							if(doc.id == InstanceID && InstanceTracked){
-			  								socket.emit('recieveObserverForInstance',doc);
+			  								models.instance.get(InstanceID).getJoin().then(function (instance){
+			  									socket.emit('recieveObserverForInstance',doc);
+			  								});
 			  							}
 			  						})
+			  					})
+			  					modules.timedRoute.changes().then(function(feed){
+			  						feed.each(function(error,doc){
+			  							models.instance.get(InstanceID).getJoin().then(function (instance){
+			  								socket.emit('recieveObserverForInstance',doc);
+			  							});
+			  						});
+			  					})
+			  					modules.loadedRoute.changes().then(function(feed){
+			  						feed.each(function(error,doc){
+			  							models.instance.get(InstanceID).getJoin().then(function (instance){
+			  								socket.emit('recieveObserverForInstance',doc);
+			  							});
+			  						});
+			  					})
+			  					modules.log.changes().then(function(feed){
+			  						feed.each(function(error,doc){
+			  							models.instance.get(InstanceID).getJoin().then(function (instance){
+			  								socket.emit('recieveObserverForInstance',doc);
+			  							});
+			  						});
 			  					})
 	  						}
 	  					});	
@@ -194,23 +217,19 @@ io.on('connection', function(socket) {
 	  				socket.emit('recieveStats', stats);
 	  			});
 
-	  			socket.on('registerObserverForInstance', function(data){
-
-	  			});
-
 	  			socket.on('registerObserverForUser', function(data) {
 	  				models.application.changes().then(function(feed) {
 						feed.each(function(error, doc) {
-							if (doc.username == data.username) {
-								socket.emit('recieveUser', doc);
+							models.user.filter({username: data.username}).limit(1).getJoin({applications: {instances: true}}).then(function(user, err) {
+								socket.emit("recieveUser",user);
 							}
 						});
 	  				});
 
 	  				models.instance.changes().then(function(feed) {
 						feed.each(function(error, doc) {
-							if (doc.username == data.username) {
-								socket.emit('recieveUser', doc);
+							models.user.filter({username: data.username}).limit(1).getJoin({applications: {instances: true}}).then(function(user, err) {
+								socket.emit("recieveUser",user);
 							}
 						});
 	  				});
